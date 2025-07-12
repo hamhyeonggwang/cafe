@@ -310,5 +310,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // 터치 이벤트 개선 (모바일)
 document.addEventListener('touchstart', function() {}, {passive: true});
 
+// 대시보드로 돌아가기
+function goBack() {
+    speak('대시보드로 돌아갑니다.');
+    window.location.href = '../index.html';
+}
+
 // 로딩 완료 메시지
 console.log('카페 키오스크 JavaScript 로드 완료'); 
