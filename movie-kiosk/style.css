@@ -804,9 +804,7 @@ button:focus, input:focus {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.instagram-icon {
-    font-size: 0.9rem;
-}
+
 
 /* 반응형 Footer */
 @media (max-width: 768px) {
