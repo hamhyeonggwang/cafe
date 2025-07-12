@@ -66,7 +66,8 @@ menuItems.forEach(item => {
 const temperatureButtons = document.querySelectorAll('.temperature-btn');
 temperatureButtons.forEach(button => {
     button.addEventListener('click', function() {
-        temperatureButtons.forEach(btn => btn.classList.remove('selected'));
+        // 온도 버튼들만 선택 해제
+        document.querySelectorAll('.temperature-btn').forEach(btn => btn.classList.remove('selected'));
         this.classList.add('selected');
         selectedOptions.temperature = this.dataset.option;
         speak(`${this.dataset.option}이 선택되었습니다.`);
@@ -78,12 +79,26 @@ temperatureButtons.forEach(button => {
 const sizeButtons = document.querySelectorAll('.size-btn');
 sizeButtons.forEach(button => {
     button.addEventListener('click', function() {
-        sizeButtons.forEach(btn => btn.classList.remove('selected'));
+        // 사이즈 버튼들만 선택 해제
+        document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
         this.classList.add('selected');
         selectedOptions.size = this.dataset.option;
         speak(`${this.dataset.option} 사이즈가 선택되었습니다.`);
         console.log('사이즈 선택:', selectedOptions.size);
     });
+});
+
+// 기본 사이즈 선택 (레귤러)
+document.addEventListener('DOMContentLoaded', function() {
+    const regularSizeBtn = document.querySelector('.size-btn[data-option="레귤러"]');
+    if (regularSizeBtn) {
+        regularSizeBtn.classList.add('selected');
+    }
+    
+    // 디버깅: 각 버튼 그룹 확인
+    console.log('온도 버튼 개수:', document.querySelectorAll('.temperature-btn').length);
+    console.log('사이즈 버튼 개수:', document.querySelectorAll('.size-btn').length);
+    console.log('추가 옵션 버튼 개수:', document.querySelectorAll('.extra-btn').length);
 });
 
 // 추가 옵션(extra) 다중 선택
