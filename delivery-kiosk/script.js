@@ -862,7 +862,7 @@ function updateCartDisplay() {
     }
     // 결제 버튼 표시/숨김
     const payBtn = document.querySelector('.pay-btn');
-    if (cart.length > 0 && selectedDeliveryTime && selectedDeliveryFee) {
+    if (cart.length > 0 && selectedDeliveryFee) {
         payBtn.style.display = 'inline-block';
     } else {
         payBtn.style.display = 'none';
@@ -956,9 +956,26 @@ function selectDeliveryFee(feeType) {
     event.target.closest('.fee-option').classList.add('selected');
     selectedDeliveryFee = feeType;
     
-    // 결제하기 버튼 표시
-    const payBtn = document.querySelector('.pay-btn');
-    payBtn.style.display = 'inline-block';
+    // 배달비를 장바구니에 추가/제거
+    if (feeType === 'fast') {
+        // 빠른배달 선택 시 장바구니에 3000원 추가
+        const fastDeliveryItem = {
+            name: '빠른배달',
+            price: 3000,
+            quantity: 1,
+            icon: '🛵',
+            type: '배달비'
+        };
+        
+        // 기존 빠른배달 항목이 있으면 제거
+        cart = cart.filter(item => item.name !== '빠른배달');
+        cart.push(fastDeliveryItem);
+    } else if (feeType === 'free') {
+        // 무료배달 선택 시 기존 빠른배달 항목 제거
+        cart = cart.filter(item => item.name !== '빠른배달');
+    }
+    
+    updateCartDisplay();
     
     speak(`${deliveryFees[feeType].name}이 선택되었습니다. 결제를 진행해주세요.`);
 }
@@ -989,9 +1006,14 @@ function displayPaymentSummary() {
     const totalPaymentAmount = document.getElementById('totalPaymentAmount');
     const selectedPaymentMethod = document.getElementById('selectedPaymentMethod');
     
-    // 메뉴 금액 계산
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const deliveryFee = deliveryFees[selectedDeliveryFee].price;
+    // 메뉴 금액 계산 (배달비 제외)
+    const menuItems = cart.filter(item => item.type !== '배달비');
+    const subtotal = menuItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    // 배달비 계산
+    const deliveryItems = cart.filter(item => item.type === '배달비');
+    const deliveryFee = deliveryItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
     const total = subtotal + deliveryFee;
     
     menuAmount.textContent = subtotal.toLocaleString() + '원';
@@ -1014,29 +1036,31 @@ function displayOrderSummary() {
     const paymentSummary = document.getElementById('paymentSummary');
     const totalAmount = document.getElementById('totalAmount');
     
-    // 주문 내역
+    // 주문 내역 (배달비 포함)
     orderSummary.innerHTML = cart.map(item => 
         `<p>${item.icon} ${item.name} ${item.quantity}개 - ${(item.price * item.quantity).toLocaleString()}원</p>`
     ).join('');
     
     // 배달 정보
+    const deliveryFeeText = selectedDeliveryFee === 'fast' ? '빠른배달 (3,000원)' : '무료배달 (0원)';
     deliverySummary.innerHTML = `
         <p>🏪 ${selectedRestaurant}</p>
-        <p>📍 ${selectedAddress}</p>
-        <p>⏰ ${selectedDeliveryTime}</p>
-        <p>💰 ${deliveryFees[selectedDeliveryFee].name} - ${deliveryFees[selectedDeliveryFee].price.toLocaleString()}원</p>
+        <p>📍 ${selectedAddress || '주소 미입력'}</p>
+        <p>💰 ${deliveryFeeText}</p>
     `;
     
     // 결제 정보
+    const paymentMethods = {
+        'card': '신용카드',
+        'cash': '현금결제',
+        'mobile': '모바일결제'
+    };
     paymentSummary.innerHTML = `
-        <p>💳 ${selectedPayment} 결제</p>
+        <p>💳 ${paymentMethods[selectedPayment] || '신용카드'} 결제</p>
     `;
     
-    // 총 금액 계산
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const deliveryFee = deliveryFees[selectedDeliveryFee].price;
-    const total = subtotal + deliveryFee;
-    
+    // 총 금액
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     totalAmount.textContent = total.toLocaleString() + '원';
 }
 
@@ -1232,6 +1256,18 @@ document.addEventListener('touchstart', function() {}, {passive: true});
 console.log('배달주문 키오스크 JavaScript 로드 완료'); 
 
 function goToPayment() {
+    if (cart.length === 0) {
+        alert('장바구니가 비어있습니다.');
+        speak('장바구니가 비어있습니다.');
+        return;
+    }
+    
+    if (!selectedDeliveryFee) {
+        alert('배달비를 먼저 선택해주세요.');
+        speak('배달비를 먼저 선택해주세요.');
+        return;
+    }
+    
     // 결제 방법 섹션 표시
     paymentSection.style.display = 'block';
     speak('결제 방법을 선택해주세요.');
