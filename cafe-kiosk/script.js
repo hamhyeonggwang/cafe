@@ -62,42 +62,44 @@ menuItems.forEach(item => {
     });
 });
 
-// 옵션 선택
-optionButtons.forEach(button => {
+// 온도(temperature) 옵션 선택
+const temperatureButtons = document.querySelectorAll('.temperature-btn');
+temperatureButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        temperatureButtons.forEach(btn => btn.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedOptions.temperature = this.dataset.option;
+        speak(`${this.dataset.option}이 선택되었습니다.`);
+        console.log('온도 선택:', selectedOptions.temperature);
+    });
+});
+
+// 사이즈(size) 옵션 선택
+const sizeButtons = document.querySelectorAll('.size-btn');
+sizeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        sizeButtons.forEach(btn => btn.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedOptions.size = this.dataset.option;
+        speak(`${this.dataset.option} 사이즈가 선택되었습니다.`);
+        console.log('사이즈 선택:', selectedOptions.size);
+    });
+});
+
+// 추가 옵션(extra) 다중 선택
+const extraButtons = document.querySelectorAll('.extra-btn');
+extraButtons.forEach(button => {
     button.addEventListener('click', function() {
         const option = this.dataset.option;
-        const optionType = this.closest('.option-group').querySelector('h3').textContent;
-        
-        // 같은 그룹의 다른 버튼들 선택 해제
-        const buttonGroup = this.closest('.button-group');
-        buttonGroup.querySelectorAll('.option-btn').forEach(btn => {
-            if (btn !== this) {
-                btn.classList.remove('selected');
-            }
-        });
-        
-        // 현재 버튼 선택
-        this.classList.add('selected');
-        
-        // 옵션 저장
-        if (optionType.includes('온도')) {
-            selectedOptions.temperature = option;
-        } else if (optionType.includes('사이즈')) {
-            selectedOptions.size = option;
-        } else if (optionType.includes('추가 옵션')) {
-            // 추가 옵션은 다중 선택 가능
-            if (selectedOptions.extra.includes(option)) {
-                selectedOptions.extra = selectedOptions.extra.filter(item => item !== option);
-                this.classList.remove('selected');
-            } else {
-                selectedOptions.extra.push(option);
-            }
+        if (selectedOptions.extra.includes(option)) {
+            selectedOptions.extra = selectedOptions.extra.filter(item => item !== option);
+            this.classList.remove('selected');
+        } else {
+            selectedOptions.extra.push(option);
+            this.classList.add('selected');
         }
-        
-        // 음성 피드백
-        speak(`${option}이 선택되었습니다.`);
-        
-        console.log('옵션 선택:', selectedOptions);
+        speak(`${option} 추가 옵션이 ${this.classList.contains('selected') ? '선택' : '해제'}되었습니다.`);
+        console.log('추가 옵션:', selectedOptions.extra);
     });
 });
 
@@ -221,7 +223,9 @@ function resetSelections() {
     selectedDrink = null;
     
     // 옵션 선택 해제
-    optionButtons.forEach(btn => btn.classList.remove('selected'));
+    temperatureButtons.forEach(btn => btn.classList.remove('selected'));
+    sizeButtons.forEach(btn => btn.classList.remove('selected'));
+    extraButtons.forEach(btn => btn.classList.remove('selected'));
     selectedOptions = {
         temperature: '',
         size: '레귤러',
