@@ -113,14 +113,87 @@ h3 {
 }
 
 .option-btn {
-    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    background: linear-gradient(45deg, #3498db, #2980b9);
     color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    border: 3px solid transparent;
 }
 
-.option-btn:hover, .option-btn.selected {
-    background: linear-gradient(45deg, #c0392b, #a93226);
+.option-btn:hover {
+    background: linear-gradient(45deg, #2980b9, #1f4e79);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+}
+
+/* 온도 버튼 스타일 */
+.temperature-btn {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+}
+
+.temperature-btn:hover {
+    background: linear-gradient(45deg, #2980b9, #1f4e79);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+}
+
+/* 핫 버튼 선택 시 - 현재 색상 유지 */
+.temperature-btn[data-option="핫"].selected {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    border-color: #e74c3c;
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+    position: relative;
+}
+
+/* 아이스 버튼 선택 시 - 파란색으로 변경 */
+.temperature-btn[data-option="아이스"].selected {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    border-color: #3498db;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+    position: relative;
+}
+
+/* 사이즈 및 추가 옵션 버튼 - 음료 메뉴 버튼과 동일한 디자인 */
+.size-btn, .extra-btn {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+}
+
+.size-btn:hover, .extra-btn:hover {
+    background: linear-gradient(45deg, #2980b9, #1f4e79);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+}
+
+.size-btn.selected, .extra-btn.selected {
+    background: linear-gradient(45deg, #2980b9, #1f4e79);
+    border-color: #3498db;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+    position: relative;
+}
+
+.option-btn.selected::after {
+    content: '✓';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #27ae60;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .menu-grid {
