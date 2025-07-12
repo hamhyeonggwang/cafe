@@ -133,8 +133,7 @@ const menuData = {
 // 배달비 정보
 const deliveryFees = {
     'free': { name: '무료배달', price: 0, condition: '30,000원 이상' },
-    'single': { name: '한집만배달', price: 3000, condition: '빠른 배달' },
-    'standard': { name: '일반배달', price: 2000, condition: '기본 배달' }
+    'fast': { name: '빠른배달', price: 3000, condition: '빠른 배달' }
 };
 
 // DOM 요소들
@@ -386,11 +385,37 @@ function selectPayment(paymentType) {
     event.target.closest('.payment-option').classList.add('selected');
     selectedPayment = paymentType;
     
-    // 주문 완료 섹션 표시
-    completeSection.style.display = 'block';
-    displayOrderSummary();
+    // 결제하기 섹션 표시
+    const paymentProcessSection = document.getElementById('paymentProcessSection');
+    paymentProcessSection.style.display = 'block';
+    displayPaymentSummary();
     
-    speak('결제 방법이 선택되었습니다.');
+    speak('결제 방법이 선택되었습니다. 결제를 진행해주세요.');
+}
+
+// 결제 요약 표시
+function displayPaymentSummary() {
+    const menuAmount = document.getElementById('menuAmount');
+    const deliveryAmount = document.getElementById('deliveryAmount');
+    const totalPaymentAmount = document.getElementById('totalPaymentAmount');
+    const selectedPaymentMethod = document.getElementById('selectedPaymentMethod');
+    
+    // 메뉴 금액 계산
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const deliveryFee = deliveryFees[selectedDeliveryFee].price;
+    const total = subtotal + deliveryFee;
+    
+    menuAmount.textContent = subtotal.toLocaleString() + '원';
+    deliveryAmount.textContent = deliveryFee.toLocaleString() + '원';
+    totalPaymentAmount.textContent = total.toLocaleString() + '원';
+    
+    // 결제 방법 표시
+    const paymentMethods = {
+        'card': '신용카드',
+        'cash': '현금결제',
+        'mobile': '모바일결제'
+    };
+    selectedPaymentMethod.textContent = paymentMethods[selectedPayment] || '신용카드';
 }
 
 // 주문 요약 표시
@@ -424,6 +449,38 @@ function displayOrderSummary() {
     const total = subtotal + deliveryFee;
     
     totalAmount.textContent = total.toLocaleString() + '원';
+}
+
+// 결제 처리
+function processPayment() {
+    speak('결제를 처리하고 있습니다...');
+    
+    // 결제 처리 시뮬레이션
+    setTimeout(() => {
+        speak('결제가 완료되었습니다!');
+        
+        // 주문 완료 섹션 표시
+        completeSection.style.display = 'block';
+        displayOrderSummary();
+        
+        // 결제하기 섹션 숨김
+        const paymentProcessSection = document.getElementById('paymentProcessSection');
+        paymentProcessSection.style.display = 'none';
+        
+        speak('주문이 완료되었습니다. 감사합니다!');
+    }, 2000);
+}
+
+// 결제 취소
+function cancelPayment() {
+    speak('결제가 취소되었습니다.');
+    
+    // 결제하기 섹션 숨김
+    const paymentProcessSection = document.getElementById('paymentProcessSection');
+    paymentProcessSection.style.display = 'none';
+    
+    // 결제 방법 선택으로 돌아가기
+    paymentSection.style.display = 'block';
 }
 
 // 주문 완료

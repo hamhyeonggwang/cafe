@@ -90,12 +90,11 @@
                 </div>
                 <div class="delivery-time-section">
                     <h3>⏰ 배달 시간</h3>
-                    <div class="time-options">
-                        <button class="time-btn" onclick="selectDeliveryTime('asap')">빠른 배달</button>
-                        <button class="time-btn" onclick="selectDeliveryTime('30min')">30분 후</button>
-                        <button class="time-btn" onclick="selectDeliveryTime('1hour')">1시간 후</button>
-                        <button class="time-btn" onclick="selectDeliveryTime('custom')">직접 설정</button>
-                    </div>
+                                    <div class="time-options">
+                    <button class="time-btn" onclick="selectDeliveryTime('asap')">빠른 배달</button>
+                    <button class="time-btn" onclick="selectDeliveryTime('30min')">30분 후</button>
+                    <button class="time-btn" onclick="selectDeliveryTime('1hour')">1시간 후</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -110,17 +109,11 @@
                     <p>30,000원 이상 주문 시</p>
                     <p class="fee-price">0원</p>
                 </div>
-                <div class="fee-option" onclick="selectDeliveryFee('single')">
+                <div class="fee-option" onclick="selectDeliveryFee('fast')">
                     <div class="fee-icon">🛵</div>
-                    <h3>한집만배달</h3>
+                    <h3>빠른배달</h3>
                     <p>빠른 배달 서비스</p>
                     <p class="fee-price">3,000원</p>
-                </div>
-                <div class="fee-option" onclick="selectDeliveryFee('standard')">
-                    <div class="fee-icon">🚛</div>
-                    <h3>일반배달</h3>
-                    <p>기본 배달 서비스</p>
-                    <p class="fee-price">2,000원</p>
                 </div>
             </div>
         </div>
@@ -143,6 +136,28 @@
                     <div class="payment-icon">📱</div>
                     <h3>모바일결제</h3>
                     <p>간편한 모바일 결제</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 결제하기 섹션 -->
+        <div class="order-section" id="paymentProcessSection" style="display: none;">
+            <h2>💳 결제하기</h2>
+            <div class="payment-process">
+                <div class="payment-summary">
+                    <h3>💰 결제 금액</h3>
+                    <div class="amount-breakdown">
+                        <p>메뉴 금액: <span id="menuAmount">0원</span></p>
+                        <p>배달비: <span id="deliveryAmount">0원</span></p>
+                        <p class="total-amount">총 결제금액: <span id="totalPaymentAmount">0원</span></p>
+                    </div>
+                </div>
+                <div class="payment-method-display">
+                    <h3>💳 결제 방법: <span id="selectedPaymentMethod">신용카드</span></h3>
+                </div>
+                <div class="payment-actions">
+                    <button class="payment-btn" onclick="processPayment()">💳 결제하기</button>
+                    <button class="cancel-btn" onclick="cancelPayment()">❌ 결제 취소</button>
                 </div>
             </div>
         </div>

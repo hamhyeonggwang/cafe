@@ -85,8 +85,15 @@ function changePerson(delta) {
     if (newCount >= 1 && newCount <= 8) {
         personCount = newCount;
         personCountSpan.textContent = personCount;
+        
+        // 인원 수가 변경되면 선택된 좌석 초기화
+        selectedSeats = [];
+        document.querySelectorAll('.seat.selected').forEach(seat => {
+            seat.classList.remove('selected');
+        });
+        
         generateSeats();
-        speak(`인원 수가 ${personCount}명으로 변경되었습니다.`);
+        speak(`인원 수가 ${personCount}명으로 변경되었습니다. 좌석을 다시 선택해주세요.`);
     }
 }
 
@@ -118,30 +125,32 @@ function generateSeats() {
 
 // 좌석 선택
 function selectSeat(seatElement) {
-    if (selectedSeats.length >= personCount) {
-        // 최대 인원수만큼 선택된 경우, 첫 번째 선택 해제
-        const firstSeat = document.querySelector('.seat.selected');
-        if (firstSeat) {
-            firstSeat.classList.remove('selected');
-            selectedSeats = selectedSeats.filter(seat => seat !== firstSeat.textContent);
-        }
-    }
-    
-    seatElement.classList.toggle('selected');
-    
+    // 이미 선택된 좌석인 경우 선택 해제
     if (seatElement.classList.contains('selected')) {
-        selectedSeats.push(seatElement.textContent);
-    } else {
+        seatElement.classList.remove('selected');
         selectedSeats = selectedSeats.filter(seat => seat !== seatElement.textContent);
+        speak(`좌석 ${seatElement.textContent} 선택이 해제되었습니다.`);
+        return;
     }
     
-    speak(`좌석 ${seatElement.textContent}이 선택되었습니다.`);
+    // 최대 인원수만큼 선택된 경우, 선택 불가
+    if (selectedSeats.length >= personCount) {
+        speak(`최대 ${personCount}명까지만 선택할 수 있습니다.`);
+        return;
+    }
+    
+    // 좌석 선택
+    seatElement.classList.add('selected');
+    selectedSeats.push(seatElement.textContent);
+    
+    speak(`좌석 ${seatElement.textContent}이 선택되었습니다. (${selectedSeats.length}/${personCount})`);
     
     // 모든 좌석이 선택되면 다음 섹션 표시
     if (selectedSeats.length === personCount) {
         setTimeout(() => {
             discountSection.style.display = 'block';
             updateTicketPrice();
+            speak('모든 좌석이 선택되었습니다. 할인 옵션을 선택해주세요.');
         }, 1000);
     }
 }
