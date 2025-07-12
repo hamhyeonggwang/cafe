@@ -862,10 +862,13 @@ function updateCartDisplay() {
     }
     // 결제 버튼 표시/숨김
     const payBtn = document.querySelector('.pay-btn');
+    console.log('결제 버튼 조건 확인:', { cartLength: cart.length, selectedDeliveryFee, cart });
     if (cart.length > 0 && selectedDeliveryFee) {
         payBtn.style.display = 'inline-block';
+        console.log('결제 버튼 표시됨');
     } else {
         payBtn.style.display = 'none';
+        console.log('결제 버튼 숨김됨');
     }
 }
 
@@ -912,6 +915,8 @@ function confirmAddress() {
 
 // 배달 시간 선택
 function selectDeliveryTime(time) {
+    console.log('배달 시간 선택:', time);
+    
     // 이전 선택 해제
     document.querySelectorAll('.time-btn').forEach(btn => {
         btn.classList.remove('selected');
@@ -923,6 +928,7 @@ function selectDeliveryTime(time) {
     
     // 배달비 타입 설정
     selectedDeliveryFee = time;
+    console.log('selectedDeliveryFee 설정:', selectedDeliveryFee);
     
     // 빠른배달 선택 시 장바구니에 3000원 추가
     if (time === 'fast') {
@@ -937,13 +943,23 @@ function selectDeliveryTime(time) {
         // 기존 빠른배달 항목이 있으면 제거
         cart = cart.filter(item => item.name !== '빠른배달');
         cart.push(fastDeliveryItem);
+        console.log('빠른배달 추가됨, 장바구니:', cart);
         updateCartDisplay();
+        
+        // 결제 버튼 직접 표시
+        const payBtn = document.querySelector('.pay-btn');
+        payBtn.style.display = 'inline-block';
         
         speak('빠른배달이 선택되었습니다. 3,000원이 추가되었습니다. 결제를 진행해주세요.');
     } else if (time === 'free') {
         // 무료배달 선택 시 기존 빠른배달 항목 제거
         cart = cart.filter(item => item.name !== '빠른배달');
+        console.log('무료배달 선택됨, 장바구니:', cart);
         updateCartDisplay();
+        
+        // 결제 버튼 직접 표시
+        const payBtn = document.querySelector('.pay-btn');
+        payBtn.style.display = 'inline-block';
         
         speak('무료배달이 선택되었습니다. 결제를 진행해주세요.');
     }
