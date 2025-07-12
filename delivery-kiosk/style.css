@@ -79,6 +79,53 @@ h3 {
     margin-bottom: 15px;
 }
 
+/* 카테고리 그리드 */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.category-item {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.category-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-color: #667eea;
+}
+
+.category-item.selected {
+    border-color: #667eea;
+    background: linear-gradient(135deg, #f0f4ff, #e8f0ff);
+}
+
+.category-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+}
+
+.category-item h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.category-item p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
 /* 음식점 그리드 */
 .restaurant-grid {
     display: grid;

@@ -1,4 +1,5 @@
 // 전역 변수
+let selectedCategory = '';
 let selectedRestaurant = null;
 let selectedAddress = '';
 let selectedDeliveryTime = '';
@@ -7,7 +8,53 @@ let selectedPayment = '';
 let cart = [];
 let currentCategory = 'main';
 
-// 메뉴 데이터
+// 카테고리별 음식점 데이터
+const restaurantData = {
+    '한식': [
+        { name: '한식당', icon: '🍚', description: '한식 전문점', deliveryTime: '35-45분', minOrder: 12000 },
+        { name: '맛있는집', icon: '🍚', description: '가정식 한식', deliveryTime: '30-40분', minOrder: 15000 },
+        { name: '전통한식', icon: '🍚', description: '전통 한식', deliveryTime: '40-50분', minOrder: 20000 },
+        { name: '한끼한끼', icon: '🍚', description: '간편 한식', deliveryTime: '25-35분', minOrder: 10000 }
+    ],
+    '중식': [
+        { name: '중국집', icon: '🥢', description: '중식 전문점', deliveryTime: '30-40분', minOrder: 10000 },
+        { name: '만리장성', icon: '🥢', description: '고급 중식', deliveryTime: '35-45분', minOrder: 18000 },
+        { name: '차이나타운', icon: '🥢', description: '전통 중식', deliveryTime: '40-50분', minOrder: 22000 },
+        { name: '중화요리', icon: '🥢', description: '현대 중식', deliveryTime: '25-35분', minOrder: 12000 }
+    ],
+    '일식': [
+        { name: '스시로', icon: '🍣', description: '일식 전문점', deliveryTime: '30-40분', minOrder: 25000 },
+        { name: '우동집', icon: '🍜', description: '우동 전문점', deliveryTime: '25-35분', minOrder: 15000 },
+        { name: '돈부리', icon: '🍱', description: '돈부리 전문', deliveryTime: '20-30분', minOrder: 12000 },
+        { name: '라멘집', icon: '🍜', description: '라멘 전문점', deliveryTime: '25-35분', minOrder: 18000 }
+    ],
+    '치킨': [
+        { name: '맛있는치킨', icon: '🍗', description: '치킨 전문점', deliveryTime: '30-40분', minOrder: 15000 },
+        { name: '바삭치킨', icon: '🍗', description: '바삭한 치킨', deliveryTime: '25-35분', minOrder: 18000 },
+        { name: '양념치킨', icon: '🍗', description: '양념 치킨', deliveryTime: '30-40분', minOrder: 20000 },
+        { name: '치킨천국', icon: '🍗', description: '다양한 치킨', deliveryTime: '35-45분', minOrder: 22000 }
+    ],
+    '피자': [
+        { name: '신선한피자', icon: '🍕', description: '피자 전문점', deliveryTime: '25-35분', minOrder: 18000 },
+        { name: '도미노피자', icon: '🍕', description: '프리미엄 피자', deliveryTime: '30-40분', minOrder: 25000 },
+        { name: '피자헛', icon: '🍕', description: '미국식 피자', deliveryTime: '25-35분', minOrder: 20000 },
+        { name: '피자스쿨', icon: '🍕', description: '학생 피자', deliveryTime: '20-30분', minOrder: 15000 }
+    ],
+    '분식': [
+        { name: '분식점', icon: '🍜', description: '분식 전문점', deliveryTime: '20-30분', minOrder: 8000 },
+        { name: '떡볶이천국', icon: '🍡', description: '떡볶이 전문', deliveryTime: '15-25분', minOrder: 6000 },
+        { name: '분식왕', icon: '🍜', description: '다양한 분식', deliveryTime: '25-35분', minOrder: 10000 },
+        { name: '분식스쿨', icon: '🍜', description: '학생 분식', deliveryTime: '20-30분', minOrder: 7000 }
+    ],
+    '카페': [
+        { name: '카페', icon: '☕', description: '음료/디저트', deliveryTime: '15-25분', minOrder: 5000 },
+        { name: '스타벅스', icon: '☕', description: '프리미엄 커피', deliveryTime: '20-30분', minOrder: 8000 },
+        { name: '투썸플레이스', icon: '☕', description: '고급 카페', deliveryTime: '25-35분', minOrder: 12000 },
+        { name: '이디야', icon: '☕', description: '대중적 카페', deliveryTime: '15-25분', minOrder: 6000 }
+    ]
+};
+
+// 메뉴 데이터 (기존 구조 유지하되 가격 차별화)
 const menuData = {
     '맛있는치킨': {
         main: [
@@ -31,6 +78,28 @@ const menuData = {
             { name: '치킨무', price: 1000, icon: '🥕', description: '신선한 치킨무' }
         ]
     },
+    '바삭치킨': {
+        main: [
+            { name: '후라이드치킨', price: 22000, icon: '🍗', description: '바삭한 후라이드치킨' },
+            { name: '양념치킨', price: 24000, icon: '🍗', description: '매콤달콤 양념치킨' },
+            { name: '간장치킨', price: 25000, icon: '🍗', description: '깊은 맛 간장치킨' },
+            { name: '파닭', price: 28000, icon: '🍗', description: '파가 듬뿍 파닭' }
+        ],
+        side: [
+            { name: '치킨무', price: 1500, icon: '🥕', description: '신선한 치킨무' },
+            { name: '콜라', price: 2500, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 2500, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        drink: [
+            { name: '콜라', price: 2500, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 2500, icon: '🥤', description: '깔끔한 사이다' },
+            { name: '맥주', price: 5000, icon: '🍺', description: '시원한 맥주' }
+        ],
+        dessert: [
+            { name: '아이스크림', price: 4000, icon: '🍦', description: '달콤한 아이스크림' },
+            { name: '치킨무', price: 1500, icon: '🥕', description: '신선한 치킨무' }
+        ]
+    },
     '신선한피자': {
         main: [
             { name: '페퍼로니피자', price: 22000, icon: '🍕', description: '매콤한 페퍼로니' },
@@ -48,6 +117,25 @@ const menuData = {
         ],
         dessert: [
             { name: '아이스크림', price: 3000, icon: '🍦', description: '달콤한 아이스크림' }
+        ]
+    },
+    '도미노피자': {
+        main: [
+            { name: '페퍼로니피자', price: 28000, icon: '🍕', description: '매콤한 페퍼로니' },
+            { name: '하와이안피자', price: 30000, icon: '🍕', description: '파인애플이 들어간 피자' },
+            { name: '불고기피자', price: 32000, icon: '🍕', description: '한국식 불고기 피자' },
+            { name: '치즈피자', price: 26000, icon: '🍕', description: '치즈가 듬뿍' }
+        ],
+        side: [
+            { name: '치킨윙', price: 12000, icon: '🍗', description: '바삭한 치킨윙' },
+            { name: '콜라', price: 3000, icon: '🥤', description: '시원한 콜라' }
+        ],
+        drink: [
+            { name: '콜라', price: 3000, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 3000, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        dessert: [
+            { name: '아이스크림', price: 4000, icon: '🍦', description: '달콤한 아이스크림' }
         ]
     },
     '한식당': {
@@ -69,6 +157,25 @@ const menuData = {
             { name: '식혜', price: 2000, icon: '🍯', description: '달콤한 식혜' }
         ]
     },
+    '맛있는집': {
+        main: [
+            { name: '김치찌개', price: 15000, icon: '🍲', description: '매콤한 김치찌개' },
+            { name: '된장찌개', price: 14000, icon: '🍲', description: '구수한 된장찌개' },
+            { name: '불고기', price: 18000, icon: '🥩', description: '맛있는 불고기' },
+            { name: '제육볶음', price: 16000, icon: '🥩', description: '매콤달콤 제육볶음' }
+        ],
+        side: [
+            { name: '김치', price: 3000, icon: '🥬', description: '신선한 김치' },
+            { name: '된장국', price: 4000, icon: '🍲', description: '구수한 된장국' }
+        ],
+        drink: [
+            { name: '막걸리', price: 5000, icon: '🍶', description: '구수한 막걸리' },
+            { name: '소주', price: 4000, icon: '🍶', description: '깔끔한 소주' }
+        ],
+        dessert: [
+            { name: '식혜', price: 3000, icon: '🍯', description: '달콤한 식혜' }
+        ]
+    },
     '중국집': {
         main: [
             { name: '짜장면', price: 8000, icon: '🍜', description: '맛있는 짜장면' },
@@ -88,6 +195,25 @@ const menuData = {
             { name: '단팥빵', price: 3000, icon: '🥖', description: '달콤한 단팥빵' }
         ]
     },
+    '만리장성': {
+        main: [
+            { name: '짜장면', price: 12000, icon: '🍜', description: '맛있는 짜장면' },
+            { name: '짬뽕', price: 14000, icon: '🍜', description: '매콤한 짬뽕' },
+            { name: '탕수육', price: 22000, icon: '🥩', description: '바삭한 탕수육' },
+            { name: '깐풍기', price: 24000, icon: '🍗', description: '달콤한 깐풍기' }
+        ],
+        side: [
+            { name: '군만두', price: 8000, icon: '🥟', description: '바삭한 군만두' },
+            { name: '양장피', price: 18000, icon: '🥬', description: '신선한 양장피' }
+        ],
+        drink: [
+            { name: '콜라', price: 3000, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 3000, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        dessert: [
+            { name: '단팥빵', price: 5000, icon: '🥖', description: '달콤한 단팥빵' }
+        ]
+    },
     '분식점': {
         main: [
             { name: '떡볶이', price: 4000, icon: '🍡', description: '매콤달콤 떡볶이' },
@@ -105,6 +231,25 @@ const menuData = {
         ],
         dessert: [
             { name: '아이스크림', price: 2000, icon: '🍦', description: '달콤한 아이스크림' }
+        ]
+    },
+    '떡볶이천국': {
+        main: [
+            { name: '떡볶이', price: 3000, icon: '🍡', description: '매콤달콤 떡볶이' },
+            { name: '라면', price: 4000, icon: '🍜', description: '맛있는 라면' },
+            { name: '김밥', price: 2500, icon: '🍙', description: '신선한 김밥' },
+            { name: '순대', price: 5000, icon: '🥖', description: '구수한 순대' }
+        ],
+        side: [
+            { name: '어묵', price: 1500, icon: '🍢', description: '맛있는 어묵' },
+            { name: '튀김', price: 2500, icon: '🍤', description: '바삭한 튀김' }
+        ],
+        drink: [
+            { name: '콜라', price: 1200, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 1200, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        dessert: [
+            { name: '아이스크림', price: 1500, icon: '🍦', description: '달콤한 아이스크림' }
         ]
     },
     '카페': {
@@ -127,6 +272,27 @@ const menuData = {
             { name: '티라미수', price: 8000, icon: '🍰', description: '부드러운 티라미수' },
             { name: '치즈케이크', price: 7000, icon: '🍰', description: '진한 치즈케이크' }
         ]
+    },
+    '스타벅스': {
+        main: [
+            { name: '아메리카노', price: 6000, icon: '☕', description: '깔끔한 아메리카노' },
+            { name: '카페라떼', price: 7000, icon: '☕', description: '부드러운 카페라떼' },
+            { name: '카푸치노', price: 7500, icon: '☕', description: '거품이 풍부한 카푸치노' },
+            { name: '모카', price: 8000, icon: '☕', description: '달콤한 모카' }
+        ],
+        side: [
+            { name: '샌드위치', price: 12000, icon: '🥪', description: '신선한 샌드위치' },
+            { name: '토스트', price: 8000, icon: '🍞', description: '바삭한 토스트' }
+        ],
+        drink: [
+            { name: '아메리카노', price: 6000, icon: '☕', description: '깔끔한 아메리카노' },
+            { name: '카페라떼', price: 7000, icon: '☕', description: '부드러운 카페라떼' },
+            { name: '스무디', price: 9000, icon: '🥤', description: '시원한 스무디' }
+        ],
+        dessert: [
+            { name: '티라미수', price: 12000, icon: '🍰', description: '부드러운 티라미수' },
+            { name: '치즈케이크', price: 10000, icon: '🍰', description: '진한 치즈케이크' }
+        ]
     }
 };
 
@@ -137,7 +303,9 @@ const deliveryFees = {
 };
 
 // DOM 요소들
+const categorySection = document.getElementById('categorySection');
 const restaurantSection = document.getElementById('restaurantSection');
+const restaurantGrid = document.getElementById('restaurantGrid');
 const menuSection = document.getElementById('menuSection');
 const deliverySection = document.getElementById('deliverySection');
 const deliveryFeeSection = document.getElementById('deliveryFeeSection');
@@ -156,6 +324,48 @@ const paymentCompleteSection = document.getElementById('paymentCompleteSection')
 const paymentAnimation = document.querySelector('.payment-animation');
 const paymentSuccess = document.querySelector('.payment-success');
 const orderNumber = document.getElementById('orderNumber');
+
+// 카테고리 선택
+function selectCategory(category) {
+    // 이전 선택 해제
+    document.querySelectorAll('.category-item').forEach(item => {
+        item.classList.remove('selected');
+    });
+    
+    // 현재 카테고리 선택
+    event.target.closest('.category-item').classList.add('selected');
+    selectedCategory = category;
+    
+    // 음식점 섹션 표시
+    displayRestaurants(category);
+    restaurantSection.style.display = 'block';
+    
+    speak(`${category} 카테고리가 선택되었습니다. 음식점을 선택해주세요.`);
+}
+
+// 음식점 표시
+function displayRestaurants(category) {
+    if (!restaurantData[category]) return;
+    
+    const restaurants = restaurantData[category];
+    restaurantGrid.innerHTML = '';
+    
+    restaurants.forEach(restaurant => {
+        const restaurantItem = document.createElement('div');
+        restaurantItem.className = 'restaurant-item';
+        restaurantItem.onclick = () => selectRestaurant(restaurant.name);
+        
+        restaurantItem.innerHTML = `
+            <div class="restaurant-icon">${restaurant.icon}</div>
+            <h3>${restaurant.name}</h3>
+            <p>${restaurant.description}</p>
+            <p class="delivery-time">배달시간: ${restaurant.deliveryTime}</p>
+            <p class="min-order">최소주문: ${restaurant.minOrder.toLocaleString()}원</p>
+        `;
+        
+        restaurantGrid.appendChild(restaurantItem);
+    });
+}
 
 // 음식점 선택
 function selectRestaurant(restaurantName) {
@@ -597,6 +807,7 @@ function resetOrder() {
     updateCartDisplay();
     
     // 모든 선택 초기화
+    selectedCategory = '';
     selectedRestaurant = null;
     selectedAddress = '';
     selectedDeliveryTime = '';
@@ -605,7 +816,8 @@ function resetOrder() {
     currentCategory = 'main';
     
     // 모든 섹션 숨기기
-    restaurantSection.style.display = 'block';
+    categorySection.style.display = 'block';
+    restaurantSection.style.display = 'none';
     menuSection.style.display = 'none';
     deliverySection.style.display = 'none';
     deliveryFeeSection.style.display = 'none';
@@ -613,7 +825,7 @@ function resetOrder() {
     completeSection.style.display = 'none';
     
     // 선택 해제
-    document.querySelectorAll('.restaurant-item, .time-btn, .fee-option, .payment-option').forEach(item => {
+    document.querySelectorAll('.category-item, .restaurant-item, .time-btn, .fee-option, .payment-option').forEach(item => {
         item.classList.remove('selected');
     });
     

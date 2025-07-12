@@ -14,52 +14,53 @@
             <button class="back-btn" onclick="goBack()">← 대시보드로 돌아가기</button>
         </header>
 
-        <!-- 음식점 선택 섹션 -->
-        <div class="order-section" id="restaurantSection">
-            <h2>🏪 음식점 선택</h2>
-            <div class="restaurant-grid">
-                <div class="restaurant-item" data-restaurant="맛있는치킨" onclick="selectRestaurant('맛있는치킨')">
-                    <div class="restaurant-icon">🍗</div>
-                    <h3>맛있는치킨</h3>
+        <!-- 카테고리 선택 섹션 -->
+        <div class="order-section" id="categorySection">
+            <h2>🍽️ 카테고리 선택</h2>
+            <div class="category-grid">
+                <div class="category-item" data-category="한식" onclick="selectCategory('한식')">
+                    <div class="category-icon">🍚</div>
+                    <h3>한식</h3>
+                    <p>한국 전통 음식</p>
+                </div>
+                <div class="category-item" data-category="중식" onclick="selectCategory('중식')">
+                    <div class="category-icon">🥢</div>
+                    <h3>중식</h3>
+                    <p>중국 음식</p>
+                </div>
+                <div class="category-item" data-category="일식" onclick="selectCategory('일식')">
+                    <div class="category-icon">🍣</div>
+                    <h3>일식</h3>
+                    <p>일본 음식</p>
+                </div>
+                <div class="category-item" data-category="치킨" onclick="selectCategory('치킨')">
+                    <div class="category-icon">🍗</div>
+                    <h3>치킨</h3>
                     <p>치킨 전문점</p>
-                    <p class="delivery-time">배달시간: 30-40분</p>
-                    <p class="min-order">최소주문: 15,000원</p>
                 </div>
-                <div class="restaurant-item" data-restaurant="신선한피자" onclick="selectRestaurant('신선한피자')">
-                    <div class="restaurant-icon">🍕</div>
-                    <h3>신선한피자</h3>
+                <div class="category-item" data-category="피자" onclick="selectCategory('피자')">
+                    <div class="category-icon">🍕</div>
+                    <h3>피자</h3>
                     <p>피자 전문점</p>
-                    <p class="delivery-time">배달시간: 25-35분</p>
-                    <p class="min-order">최소주문: 18,000원</p>
                 </div>
-                <div class="restaurant-item" data-restaurant="한식당" onclick="selectRestaurant('한식당')">
-                    <div class="restaurant-icon">🍚</div>
-                    <h3>한식당</h3>
-                    <p>한식 전문점</p>
-                    <p class="delivery-time">배달시간: 35-45분</p>
-                    <p class="min-order">최소주문: 12,000원</p>
-                </div>
-                <div class="restaurant-item" data-restaurant="중국집" onclick="selectRestaurant('중국집')">
-                    <div class="restaurant-icon">🥢</div>
-                    <h3>중국집</h3>
-                    <p>중식 전문점</p>
-                    <p class="delivery-time">배달시간: 30-40분</p>
-                    <p class="min-order">최소주문: 10,000원</p>
-                </div>
-                <div class="restaurant-item" data-restaurant="분식점" onclick="selectRestaurant('분식점')">
-                    <div class="restaurant-icon">🍜</div>
-                    <h3>분식점</h3>
+                <div class="category-item" data-category="분식" onclick="selectCategory('분식')">
+                    <div class="category-icon">🍜</div>
+                    <h3>분식</h3>
                     <p>분식 전문점</p>
-                    <p class="delivery-time">배달시간: 20-30분</p>
-                    <p class="min-order">최소주문: 8,000원</p>
                 </div>
-                <div class="restaurant-item" data-restaurant="카페" onclick="selectRestaurant('카페')">
-                    <div class="restaurant-icon">☕</div>
+                <div class="category-item" data-category="카페" onclick="selectCategory('카페')">
+                    <div class="category-icon">☕</div>
                     <h3>카페</h3>
                     <p>음료/디저트</p>
-                    <p class="delivery-time">배달시간: 15-25분</p>
-                    <p class="min-order">최소주문: 5,000원</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- 음식점 선택 섹션 -->
+        <div class="order-section" id="restaurantSection" style="display: none;">
+            <h2>🏪 음식점 선택</h2>
+            <div class="restaurant-grid" id="restaurantGrid">
+                <!-- 음식점들이 JavaScript로 동적 생성됩니다 -->
             </div>
         </div>
 
