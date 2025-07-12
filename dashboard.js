@@ -73,60 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
     speak('키오스크 훈련 대시보드에 오신 것을 환영합니다. 원하는 훈련 프로그램을 선택해주세요.');
 });
 
-// 진행 상황 업데이트 (로컬 스토리지 사용)
-function updateProgress() {
-    const progressItems = document.querySelectorAll('.progress-item');
-    
-    progressItems.forEach(item => {
-        const progressFill = item.querySelector('.progress-fill');
-        const statusSpan = item.querySelector('span:last-child');
-        const trainingName = item.querySelector('span:first-child').textContent;
-        
-        // 로컬 스토리지에서 진행 상황 확인
-        const progress = localStorage.getItem(`${trainingName}_progress`) || 0;
-        
-        if (progress > 0) {
-            progressFill.style.width = `${progress}%`;
-            if (progress >= 100) {
-                statusSpan.textContent = '완료';
-                statusSpan.style.color = '#27ae60';
-            } else {
-                statusSpan.textContent = `${progress}%`;
-            }
-        }
-    });
-}
 
-// 훈련 완료 시 호출할 함수
-function completeTraining(trainingType) {
-    const progress = localStorage.getItem(`${trainingType}_progress`) || 0;
-    const newProgress = Math.min(100, progress + 25); // 25%씩 증가
-    localStorage.setItem(`${trainingType}_progress`, newProgress);
-    
-    speak(`${trainingType} 훈련이 완료되었습니다. 대시보드로 돌아갑니다.`);
-    
-    // 잠시 후 대시보드로 이동
-    setTimeout(() => {
-        window.location.href = 'index.html';
-    }, 2000);
-}
-
-// 통계 정보 표시
-function showStatistics() {
-    const totalTrainings = 4; // 전체 훈련 수
-    const completedTrainings = ['카페 훈련']; // 완료된 훈련
-    
-    const completionRate = (completedTrainings.length / totalTrainings) * 100;
-    
-    // 통계 표시 (필요시 구현)
-    console.log(`훈련 완료율: ${completionRate}%`);
-}
 
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', function() {
-    updateProgress();
-    showStatistics();
-    
     // 애니메이션 효과
     const cards = document.querySelectorAll('.training-card');
     cards.forEach((card, index) => {

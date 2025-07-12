@@ -402,5 +402,7 @@ function goBack() {
     window.location.href = '../index.html';
 }
 
+
+
 // 로딩 완료 메시지
 console.log('카페 키오스크 JavaScript 로드 완료'); 

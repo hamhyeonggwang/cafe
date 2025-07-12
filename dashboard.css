@@ -179,36 +179,7 @@ h2 {
     line-height: 1.5;
 }
 
-.progress-info {
-    margin-top: 15px;
-}
 
-.progress-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    gap: 15px;
-}
-
-.progress-item span {
-    font-size: 1.2rem;
-    color: #2c3e50;
-    min-width: 100px;
-}
-
-.progress-bar {
-    flex: 1;
-    height: 20px;
-    background: #ecf0f1;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(45deg, #27ae60, #2ecc71);
-    transition: width 0.3s ease;
-}
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
