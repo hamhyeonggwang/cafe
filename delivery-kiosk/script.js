@@ -293,6 +293,340 @@ const menuData = {
             { name: '티라미수', price: 12000, icon: '🍰', description: '부드러운 티라미수' },
             { name: '치즈케이크', price: 10000, icon: '🍰', description: '진한 치즈케이크' }
         ]
+    },
+    // 추가 음식점들의 메뉴
+    '양념치킨': {
+        main: [
+            { name: '양념치킨', price: 25000, icon: '🍗', description: '매콤달콤 양념치킨' },
+            { name: '후라이드치킨', price: 24000, icon: '🍗', description: '바삭한 후라이드치킨' },
+            { name: '간장치킨', price: 26000, icon: '🍗', description: '깊은 맛 간장치킨' },
+            { name: '파닭', price: 28000, icon: '🍗', description: '파가 듬뿍 파닭' }
+        ],
+        side: [
+            { name: '치킨무', price: 2000, icon: '🥕', description: '신선한 치킨무' },
+            { name: '콜라', price: 3000, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 3000, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        drink: [
+            { name: '콜라', price: 3000, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 3000, icon: '🥤', description: '깔끔한 사이다' },
+            { name: '맥주', price: 6000, icon: '🍺', description: '시원한 맥주' }
+        ],
+        dessert: [
+            { name: '아이스크림', price: 5000, icon: '🍦', description: '달콤한 아이스크림' },
+            { name: '치킨무', price: 2000, icon: '🥕', description: '신선한 치킨무' }
+        ]
+    },
+    '치킨천국': {
+        main: [
+            { name: '후라이드치킨', price: 26000, icon: '🍗', description: '바삭한 후라이드치킨' },
+            { name: '양념치킨', price: 28000, icon: '🍗', description: '매콤달콤 양념치킨' },
+            { name: '간장치킨', price: 29000, icon: '🍗', description: '깊은 맛 간장치킨' },
+            { name: '파닭', price: 32000, icon: '🍗', description: '파가 듬뿍 파닭' }
+        ],
+        side: [
+            { name: '치킨무', price: 2500, icon: '🥕', description: '신선한 치킨무' },
+            { name: '콜라', price: 3500, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 3500, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        drink: [
+            { name: '콜라', price: 3500, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 3500, icon: '🥤', description: '깔끔한 사이다' },
+            { name: '맥주', price: 7000, icon: '🍺', description: '시원한 맥주' }
+        ],
+        dessert: [
+            { name: '아이스크림', price: 6000, icon: '🍦', description: '달콤한 아이스크림' },
+            { name: '치킨무', price: 2500, icon: '🥕', description: '신선한 치킨무' }
+        ]
+    },
+    '피자헛': {
+        main: [
+            { name: '페퍼로니피자', price: 24000, icon: '🍕', description: '매콤한 페퍼로니' },
+            { name: '하와이안피자', price: 26000, icon: '🍕', description: '파인애플이 들어간 피자' },
+            { name: '불고기피자', price: 28000, icon: '🍕', description: '한국식 불고기 피자' },
+            { name: '치즈피자', price: 22000, icon: '🍕', description: '치즈가 듬뿍' }
+        ],
+        side: [
+            { name: '치킨윙', price: 10000, icon: '🍗', description: '바삭한 치킨윙' },
+            { name: '콜라', price: 2500, icon: '🥤', description: '시원한 콜라' }
+        ],
+        drink: [
+            { name: '콜라', price: 2500, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 2500, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        dessert: [
+            { name: '아이스크림', price: 3500, icon: '🍦', description: '달콤한 아이스크림' }
+        ]
+    },
+    '피자스쿨': {
+        main: [
+            { name: '페퍼로니피자', price: 18000, icon: '🍕', description: '매콤한 페퍼로니' },
+            { name: '하와이안피자', price: 20000, icon: '🍕', description: '파인애플이 들어간 피자' },
+            { name: '불고기피자', price: 22000, icon: '🍕', description: '한국식 불고기 피자' },
+            { name: '치즈피자', price: 16000, icon: '🍕', description: '치즈가 듬뿍' }
+        ],
+        side: [
+            { name: '치킨윙', price: 6000, icon: '🍗', description: '바삭한 치킨윙' },
+            { name: '콜라', price: 1500, icon: '🥤', description: '시원한 콜라' }
+        ],
+        drink: [
+            { name: '콜라', price: 1500, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 1500, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        dessert: [
+            { name: '아이스크림', price: 2500, icon: '🍦', description: '달콤한 아이스크림' }
+        ]
+    },
+    '맛있는집': {
+        main: [
+            { name: '김치찌개', price: 15000, icon: '🍲', description: '매콤한 김치찌개' },
+            { name: '된장찌개', price: 14000, icon: '🍲', description: '구수한 된장찌개' },
+            { name: '불고기', price: 18000, icon: '🥩', description: '맛있는 불고기' },
+            { name: '제육볶음', price: 16000, icon: '🥩', description: '매콤달콤 제육볶음' }
+        ],
+        side: [
+            { name: '김치', price: 3000, icon: '🥬', description: '신선한 김치' },
+            { name: '된장국', price: 4000, icon: '🍲', description: '구수한 된장국' }
+        ],
+        drink: [
+            { name: '막걸리', price: 5000, icon: '🍶', description: '구수한 막걸리' },
+            { name: '소주', price: 4000, icon: '🍶', description: '깔끔한 소주' }
+        ],
+        dessert: [
+            { name: '식혜', price: 3000, icon: '🍯', description: '달콤한 식혜' }
+        ]
+    },
+    '전통한식': {
+        main: [
+            { name: '김치찌개', price: 20000, icon: '🍲', description: '매콤한 김치찌개' },
+            { name: '된장찌개', price: 18000, icon: '🍲', description: '구수한 된장찌개' },
+            { name: '불고기', price: 25000, icon: '🥩', description: '맛있는 불고기' },
+            { name: '제육볶음', price: 22000, icon: '🥩', description: '매콤달콤 제육볶음' }
+        ],
+        side: [
+            { name: '김치', price: 5000, icon: '🥬', description: '신선한 김치' },
+            { name: '된장국', price: 6000, icon: '🍲', description: '구수한 된장국' }
+        ],
+        drink: [
+            { name: '막걸리', price: 8000, icon: '🍶', description: '구수한 막걸리' },
+            { name: '소주', price: 6000, icon: '🍶', description: '깔끔한 소주' }
+        ],
+        dessert: [
+            { name: '식혜', price: 4000, icon: '🍯', description: '달콤한 식혜' }
+        ]
+    },
+    '한끼한끼': {
+        main: [
+            { name: '김치찌개', price: 10000, icon: '🍲', description: '매콤한 김치찌개' },
+            { name: '된장찌개', price: 9000, icon: '🍲', description: '구수한 된장찌개' },
+            { name: '불고기', price: 12000, icon: '🥩', description: '맛있는 불고기' },
+            { name: '제육볶음', price: 11000, icon: '🥩', description: '매콤달콤 제육볶음' }
+        ],
+        side: [
+            { name: '김치', price: 1500, icon: '🥬', description: '신선한 김치' },
+            { name: '된장국', price: 2000, icon: '🍲', description: '구수한 된장국' }
+        ],
+        drink: [
+            { name: '막걸리', price: 3000, icon: '🍶', description: '구수한 막걸리' },
+            { name: '소주', price: 2500, icon: '🍶', description: '깔끔한 소주' }
+        ],
+        dessert: [
+            { name: '식혜', price: 1500, icon: '🍯', description: '달콤한 식혜' }
+        ]
+    },
+    '차이나타운': {
+        main: [
+            { name: '짜장면', price: 15000, icon: '🍜', description: '맛있는 짜장면' },
+            { name: '짬뽕', price: 17000, icon: '🍜', description: '매콤한 짬뽕' },
+            { name: '탕수육', price: 28000, icon: '🥩', description: '바삭한 탕수육' },
+            { name: '깐풍기', price: 30000, icon: '🍗', description: '달콤한 깐풍기' }
+        ],
+        side: [
+            { name: '군만두', price: 10000, icon: '🥟', description: '바삭한 군만두' },
+            { name: '양장피', price: 22000, icon: '🥬', description: '신선한 양장피' }
+        ],
+        drink: [
+            { name: '콜라', price: 4000, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 4000, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        dessert: [
+            { name: '단팥빵', price: 6000, icon: '🥖', description: '달콤한 단팥빵' }
+        ]
+    },
+    '중화요리': {
+        main: [
+            { name: '짜장면', price: 13000, icon: '🍜', description: '맛있는 짜장면' },
+            { name: '짬뽕', price: 15000, icon: '🍜', description: '매콤한 짬뽕' },
+            { name: '탕수육', price: 25000, icon: '🥩', description: '바삭한 탕수육' },
+            { name: '깐풍기', price: 27000, icon: '🍗', description: '달콤한 깐풍기' }
+        ],
+        side: [
+            { name: '군만두', price: 9000, icon: '🥟', description: '바삭한 군만두' },
+            { name: '양장피', price: 20000, icon: '🥬', description: '신선한 양장피' }
+        ],
+        drink: [
+            { name: '콜라', price: 3500, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 3500, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        dessert: [
+            { name: '단팥빵', price: 5500, icon: '🥖', description: '달콤한 단팥빵' }
+        ]
+    },
+    '스시로': {
+        main: [
+            { name: '초밥세트', price: 30000, icon: '🍣', description: '신선한 초밥 세트' },
+            { name: '우동', price: 18000, icon: '🍜', description: '맛있는 우동' },
+            { name: '라멘', price: 20000, icon: '🍜', description: '진한 라멘' },
+            { name: '돈부리', price: 22000, icon: '🍱', description: '푸짐한 돈부리' }
+        ],
+        side: [
+            { name: '미소국', price: 5000, icon: '🍲', description: '구수한 미소국' },
+            { name: '가라아게', price: 12000, icon: '🍗', description: '바삭한 가라아게' }
+        ],
+        drink: [
+            { name: '녹차', price: 3000, icon: '🍵', description: '깔끔한 녹차' },
+            { name: '우롱차', price: 4000, icon: '🍵', description: '향긋한 우롱차' }
+        ],
+        dessert: [
+            { name: '모찌', price: 6000, icon: '🍡', description: '달콤한 모찌' }
+        ]
+    },
+    '우동집': {
+        main: [
+            { name: '우동', price: 15000, icon: '🍜', description: '맛있는 우동' },
+            { name: '라멘', price: 18000, icon: '🍜', description: '진한 라멘' },
+            { name: '돈부리', price: 12000, icon: '🍱', description: '푸짐한 돈부리' },
+            { name: '초밥세트', price: 25000, icon: '🍣', description: '신선한 초밥 세트' }
+        ],
+        side: [
+            { name: '미소국', price: 3000, icon: '🍲', description: '구수한 미소국' },
+            { name: '가라아게', price: 8000, icon: '🍗', description: '바삭한 가라아게' }
+        ],
+        drink: [
+            { name: '녹차', price: 2000, icon: '🍵', description: '깔끔한 녹차' },
+            { name: '우롱차', price: 3000, icon: '🍵', description: '향긋한 우롱차' }
+        ],
+        dessert: [
+            { name: '모찌', price: 4000, icon: '🍡', description: '달콤한 모찌' }
+        ]
+    },
+    '돈부리': {
+        main: [
+            { name: '돈부리', price: 12000, icon: '🍱', description: '푸짐한 돈부리' },
+            { name: '우동', price: 12000, icon: '🍜', description: '맛있는 우동' },
+            { name: '라멘', price: 15000, icon: '🍜', description: '진한 라멘' },
+            { name: '초밥세트', price: 20000, icon: '🍣', description: '신선한 초밥 세트' }
+        ],
+        side: [
+            { name: '미소국', price: 2000, icon: '🍲', description: '구수한 미소국' },
+            { name: '가라아게', price: 6000, icon: '🍗', description: '바삭한 가라아게' }
+        ],
+        drink: [
+            { name: '녹차', price: 1500, icon: '🍵', description: '깔끔한 녹차' },
+            { name: '우롱차', price: 2500, icon: '🍵', description: '향긋한 우롱차' }
+        ],
+        dessert: [
+            { name: '모찌', price: 3000, icon: '🍡', description: '달콤한 모찌' }
+        ]
+    },
+    '라멘집': {
+        main: [
+            { name: '라멘', price: 18000, icon: '🍜', description: '진한 라멘' },
+            { name: '우동', price: 16000, icon: '🍜', description: '맛있는 우동' },
+            { name: '돈부리', price: 14000, icon: '🍱', description: '푸짐한 돈부리' },
+            { name: '초밥세트', price: 28000, icon: '🍣', description: '신선한 초밥 세트' }
+        ],
+        side: [
+            { name: '미소국', price: 4000, icon: '🍲', description: '구수한 미소국' },
+            { name: '가라아게', price: 10000, icon: '🍗', description: '바삭한 가라아게' }
+        ],
+        drink: [
+            { name: '녹차', price: 2500, icon: '🍵', description: '깔끔한 녹차' },
+            { name: '우롱차', price: 3500, icon: '🍵', description: '향긋한 우롱차' }
+        ],
+        dessert: [
+            { name: '모찌', price: 5000, icon: '🍡', description: '달콤한 모찌' }
+        ]
+    },
+    '분식왕': {
+        main: [
+            { name: '떡볶이', price: 5000, icon: '🍡', description: '매콤달콤 떡볶이' },
+            { name: '라면', price: 6000, icon: '🍜', description: '맛있는 라면' },
+            { name: '김밥', price: 4000, icon: '🍙', description: '신선한 김밥' },
+            { name: '순대', price: 7000, icon: '🥖', description: '구수한 순대' }
+        ],
+        side: [
+            { name: '어묵', price: 2500, icon: '🍢', description: '맛있는 어묵' },
+            { name: '튀김', price: 3500, icon: '🍤', description: '바삭한 튀김' }
+        ],
+        drink: [
+            { name: '콜라', price: 2000, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 2000, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        dessert: [
+            { name: '아이스크림', price: 2500, icon: '🍦', description: '달콤한 아이스크림' }
+        ]
+    },
+    '분식스쿨': {
+        main: [
+            { name: '떡볶이', price: 3500, icon: '🍡', description: '매콤달콤 떡볶이' },
+            { name: '라면', price: 4500, icon: '🍜', description: '맛있는 라면' },
+            { name: '김밥', price: 2800, icon: '🍙', description: '신선한 김밥' },
+            { name: '순대', price: 5500, icon: '🥖', description: '구수한 순대' }
+        ],
+        side: [
+            { name: '어묵', price: 1800, icon: '🍢', description: '맛있는 어묵' },
+            { name: '튀김', price: 2800, icon: '🍤', description: '바삭한 튀김' }
+        ],
+        drink: [
+            { name: '콜라', price: 1300, icon: '🥤', description: '시원한 콜라' },
+            { name: '사이다', price: 1300, icon: '🥤', description: '깔끔한 사이다' }
+        ],
+        dessert: [
+            { name: '아이스크림', price: 1800, icon: '🍦', description: '달콤한 아이스크림' }
+        ]
+    },
+    '투썸플레이스': {
+        main: [
+            { name: '아메리카노', price: 5500, icon: '☕', description: '깔끔한 아메리카노' },
+            { name: '카페라떼', price: 6500, icon: '☕', description: '부드러운 카페라떼' },
+            { name: '카푸치노', price: 7000, icon: '☕', description: '거품이 풍부한 카푸치노' },
+            { name: '모카', price: 7500, icon: '☕', description: '달콤한 모카' }
+        ],
+        side: [
+            { name: '샌드위치', price: 10000, icon: '🥪', description: '신선한 샌드위치' },
+            { name: '토스트', price: 7000, icon: '🍞', description: '바삭한 토스트' }
+        ],
+        drink: [
+            { name: '아메리카노', price: 5500, icon: '☕', description: '깔끔한 아메리카노' },
+            { name: '카페라떼', price: 6500, icon: '☕', description: '부드러운 카페라떼' },
+            { name: '스무디', price: 8000, icon: '🥤', description: '시원한 스무디' }
+        ],
+        dessert: [
+            { name: '티라미수', price: 10000, icon: '🍰', description: '부드러운 티라미수' },
+            { name: '치즈케이크', price: 9000, icon: '🍰', description: '진한 치즈케이크' }
+        ]
+    },
+    '이디야': {
+        main: [
+            { name: '아메리카노', price: 3500, icon: '☕', description: '깔끔한 아메리카노' },
+            { name: '카페라떼', price: 4500, icon: '☕', description: '부드러운 카페라떼' },
+            { name: '카푸치노', price: 5000, icon: '☕', description: '거품이 풍부한 카푸치노' },
+            { name: '모카', price: 5500, icon: '☕', description: '달콤한 모카' }
+        ],
+        side: [
+            { name: '샌드위치', price: 7000, icon: '🥪', description: '신선한 샌드위치' },
+            { name: '토스트', price: 5000, icon: '🍞', description: '바삭한 토스트' }
+        ],
+        drink: [
+            { name: '아메리카노', price: 3500, icon: '☕', description: '깔끔한 아메리카노' },
+            { name: '카페라떼', price: 4500, icon: '☕', description: '부드러운 카페라떼' },
+            { name: '스무디', price: 6000, icon: '🥤', description: '시원한 스무디' }
+        ],
+        dessert: [
+            { name: '티라미수', price: 7000, icon: '🍰', description: '부드러운 티라미수' },
+            { name: '치즈케이크', price: 6000, icon: '🍰', description: '진한 치즈케이크' }
+        ]
     }
 };
 
