@@ -1,19 +1,13 @@
 // 전역 변수
 let selectedOrderType = '';
 let selectedFood = null;
-let selectedOptions = {
-    spiciness: '',
-    sauce: '',
-    side: ''
-};
 let quantity = 1;
 let cart = [];
 
 // DOM 요소들
 const orderButtons = document.querySelectorAll('.order-btn');
 const menuItems = document.querySelectorAll('.menu-item');
-const optionButtons = document.querySelectorAll('.option-btn');
-const optionsSection = document.getElementById('optionsSection');
+const quantitySection = document.getElementById('quantitySection');
 const quantitySpan = document.getElementById('quantity');
 const minusBtn = document.getElementById('minusBtn');
 const plusBtn = document.getElementById('plusBtn');
@@ -21,6 +15,16 @@ const addToCartBtn = document.getElementById('addToCartBtn');
 const cartItems = document.getElementById('cartItems');
 const totalPrice = document.getElementById('totalPrice');
 const orderCompleteBtn = document.getElementById('orderCompleteBtn');
+
+// 결제 관련 DOM 요소들
+const paymentSection = document.getElementById('paymentSection');
+const paymentOptions = document.querySelectorAll('.payment-option');
+const paymentAmount = document.getElementById('paymentAmount');
+const processPaymentBtn = document.getElementById('processPaymentBtn');
+const paymentCompleteSection = document.getElementById('paymentCompleteSection');
+const paymentAnimation = document.querySelector('.payment-animation');
+const paymentSuccess = document.querySelector('.payment-success');
+const orderNumber = document.getElementById('orderNumber');
 
 // 주문 방식 선택
 orderButtons.forEach(button => {
@@ -49,49 +53,17 @@ menuItems.forEach(item => {
         this.classList.add('selected');
         selectedFood = {
             name: this.dataset.food,
-            basePrice: parseInt(this.dataset.price)
+            basePrice: parseInt(this.dataset.price),
+            isSet: this.dataset.set === 'true'
         };
         
-        // 옵션 섹션 표시
-        optionsSection.style.display = 'block';
+        // 수량 섹션 표시
+        quantitySection.style.display = 'block';
         
         // 음성 피드백
-        speak(`${selectedFood.name}가 선택되었습니다. 옵션을 선택해주세요.`);
+        speak(`${selectedFood.name}가 선택되었습니다. 수량을 선택해주세요.`);
         
         console.log('음식 선택:', selectedFood);
-    });
-});
-
-// 옵션 선택
-optionButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        const option = this.dataset.option;
-        const optionType = this.closest('.option-group').querySelector('h3').textContent;
-        
-        // 같은 그룹의 다른 버튼들 선택 해제
-        const buttonGroup = this.closest('.button-group');
-        buttonGroup.querySelectorAll('.option-btn').forEach(btn => {
-            if (btn !== this) {
-                btn.classList.remove('selected');
-            }
-        });
-        
-        // 현재 버튼 선택
-        this.classList.add('selected');
-        
-        // 옵션 저장
-        if (optionType.includes('매운 정도')) {
-            selectedOptions.spiciness = option;
-        } else if (optionType.includes('소스')) {
-            selectedOptions.sauce = option;
-        } else if (optionType.includes('사이드 메뉴')) {
-            selectedOptions.side = option;
-        }
-        
-        // 음성 피드백
-        speak(`${option}이 선택되었습니다.`);
-        
-        console.log('옵션 선택:', selectedOptions);
     });
 });
 
@@ -126,33 +98,13 @@ addToCartBtn.addEventListener('click', function() {
         return;
     }
     
-    if (!selectedOptions.spiciness) {
-        alert('매운 정도를 선택해주세요.');
-        speak('매운 정도를 선택해주세요.');
-        return;
-    }
-    
-    // 가격 계산
-    let totalItemPrice = selectedFood.basePrice;
-    
-    // 사이드 메뉴 추가 가격
-    if (selectedOptions.side === '김치') {
-        totalItemPrice += 500;
-    } else if (selectedOptions.side === '단무지') {
-        totalItemPrice += 300;
-    } else if (selectedOptions.side === '콜라') {
-        totalItemPrice += 1000;
-    }
-    
     // 장바구니에 추가
     const cartItem = {
         orderType: selectedOrderType,
         food: selectedFood.name,
-        spiciness: selectedOptions.spiciness,
-        sauce: selectedOptions.sauce,
-        side: selectedOptions.side,
         quantity: quantity,
-        price: totalItemPrice * quantity
+        price: selectedFood.basePrice * quantity,
+        isSet: selectedFood.isSet
     };
     
     cart.push(cartItem);
@@ -178,12 +130,11 @@ function updateCartDisplay() {
         const cartItemDiv = document.createElement('div');
         cartItemDiv.className = 'cart-item';
         
+        const setBadge = item.isSet ? '<span style="background: #f39c12; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; margin-left: 10px;">세트</span>' : '';
+        
         cartItemDiv.innerHTML = `
-            <h4>${item.food} ${item.quantity}개</h4>
+            <h4>${item.food} ${item.quantity}개 ${setBadge}</h4>
             <p>주문방식: ${item.orderType}</p>
-            <p>매운 정도: ${item.spiciness}</p>
-            <p>소스: ${item.sauce}</p>
-            ${item.side !== '사이드없음' ? `<p>사이드: ${item.side}</p>` : ''}
             <p class="price">${item.price.toLocaleString()}원</p>
             <button onclick="removeFromCart(${index})" style="background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; margin-top: 10px;">삭제</button>
         `;
@@ -209,23 +160,15 @@ function resetSelections() {
     menuItems.forEach(item => item.classList.remove('selected'));
     selectedFood = null;
     
-    // 옵션 선택 해제
-    optionButtons.forEach(btn => btn.classList.remove('selected'));
-    selectedOptions = {
-        spiciness: '',
-        sauce: '',
-        side: ''
-    };
-    
     // 수량 초기화
     quantity = 1;
     quantitySpan.textContent = quantity;
     
-    // 옵션 섹션 숨기기
-    optionsSection.style.display = 'none';
+    // 수량 섹션 숨기기
+    quantitySection.style.display = 'none';
 }
 
-// 주문 완료
+// 주문 완료 - 결제 화면으로 이동
 orderCompleteBtn.addEventListener('click', function() {
     if (cart.length === 0) {
         alert('장바구니가 비어있습니다.');
@@ -234,28 +177,74 @@ orderCompleteBtn.addEventListener('click', function() {
     }
     
     const total = cart.reduce((sum, item) => sum + item.price, 0);
-    const orderSummary = cart.map(item => 
-        `${item.food} ${item.quantity}개 (${item.spiciness}, ${item.sauce})`
-    ).join('\n');
+    paymentAmount.textContent = total.toLocaleString() + '원';
     
-    const orderMessage = `
-주문이 완료되었습니다!
-
-주문 내역:
-${orderSummary}
-
-총 금액: ${total.toLocaleString()}원
-
-감사합니다! 😊
-    `;
+    // 결제 화면 표시
+    paymentSection.style.display = 'block';
+    speak('결제 방법을 선택해주세요.');
     
-    alert(orderMessage);
-    speak('주문이 완료되었습니다. 감사합니다!');
-    
-    // 훈련 완료 기록
-    if (typeof completeTraining === 'function') {
-        completeTraining('식당 훈련');
+    console.log('결제 화면 표시');
+});
+
+// 결제 방법 선택
+paymentOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        // 이전 선택 해제
+        paymentOptions.forEach(opt => opt.classList.remove('selected'));
+        
+        // 현재 선택
+        this.classList.add('selected');
+        const selectedMethod = this.dataset.method;
+        
+        // 결제하기 버튼 표시
+        processPaymentBtn.style.display = 'inline-block';
+        
+        const methodText = selectedMethod === 'card' ? '카드결제' : '모바일쿠폰결제';
+        speak(`${methodText}가 선택되었습니다.`);
+        
+        console.log('결제 방법 선택:', selectedMethod);
+    });
+});
+
+// 결제 처리
+processPaymentBtn.addEventListener('click', function() {
+    const selectedPayment = document.querySelector('.payment-option.selected');
+    if (!selectedPayment) {
+        alert('결제 방법을 선택해주세요.');
+        speak('결제 방법을 선택해주세요.');
+        return;
     }
+    
+    // 결제 화면 숨기기
+    paymentSection.style.display = 'none';
+    
+    // 결제 완료 화면 표시
+    paymentCompleteSection.style.display = 'block';
+    paymentAnimation.style.display = 'block';
+    paymentSuccess.style.display = 'none';
+    
+    speak('결제를 처리하고 있습니다.');
+    
+    // 3초 후 결제 완료 표시
+    setTimeout(() => {
+        paymentAnimation.style.display = 'none';
+        paymentSuccess.style.display = 'block';
+        
+        // 주문번호 생성 (현재 시간 기반)
+        const orderNum = 'REST' + Date.now().toString().slice(-6);
+        orderNumber.textContent = orderNum;
+        
+        speak('결제가 완료되었습니다.');
+        
+        console.log('결제 완료, 주문번호:', orderNum);
+    }, 3000);
+});
+
+// 새로운 주문 시작
+function resetOrder() {
+    // 모든 화면 초기화
+    paymentSection.style.display = 'none';
+    paymentCompleteSection.style.display = 'none';
     
     // 장바구니 초기화
     cart = [];
@@ -266,8 +255,14 @@ ${orderSummary}
     selectedOrderType = '';
     resetSelections();
     
-    console.log('주문 완료');
-});
+    // 결제 옵션 선택 해제
+    paymentOptions.forEach(opt => opt.classList.remove('selected'));
+    processPaymentBtn.style.display = 'none';
+    
+    speak('새로운 주문을 시작합니다.');
+    
+    console.log('새로운 주문 시작');
+}
 
 // 대시보드로 돌아가기
 function goBack() {

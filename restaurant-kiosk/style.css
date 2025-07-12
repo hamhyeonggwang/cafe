@@ -152,11 +152,48 @@ h3 {
     background: linear-gradient(135deg, #fff5f5, #ffe8e8);
 }
 
-.menu-item img {
+.menu-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    margin-bottom: 15px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    margin: 0 auto 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover .menu-icon {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.menu-item.selected .menu-icon {
+    background: linear-gradient(135deg, #ffe8e8, #ffd6d6);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+}
+
+/* 세트 메뉴 스타일 */
+.set-menu {
+    border: 3px solid #f39c12;
+    background: linear-gradient(135deg, #fff8e1, #fff3cd);
+}
+
+.set-menu .menu-icon {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+}
+
+.set-menu small {
+    display: block;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-top: 5px;
+    font-style: italic;
 }
 
 .menu-item h3 {
@@ -282,6 +319,159 @@ h3 {
     background: linear-gradient(45deg, #8e44ad, #7d3c98);
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(155, 89, 182, 0.4);
+}
+
+/* 결제 화면 스타일 */
+.payment-section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.payment-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.payment-option {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.payment-option:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-color: #e74c3c;
+}
+
+.payment-option.selected {
+    border-color: #e74c3c;
+    background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+}
+
+.payment-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+}
+
+.payment-option h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.payment-option p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+}
+
+.payment-total {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 3px solid #ecf0f1;
+}
+
+.payment-total h3 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.payment-btn {
+    background: linear-gradient(45deg, #27ae60, #229954);
+    color: white;
+    border: none;
+    padding: 25px 50px;
+    border-radius: 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.payment-btn:hover {
+    background: linear-gradient(45deg, #229954, #1e8449);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
+}
+
+/* 결제 완료 화면 */
+.payment-complete-section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 50px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.payment-animation {
+    margin-bottom: 30px;
+}
+
+.loading-spinner {
+    width: 80px;
+    height: 80px;
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #e74c3c;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.payment-success {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.success-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+}
+
+.payment-success h2 {
+    font-size: 2.5rem;
+    color: #27ae60;
+    margin-bottom: 15px;
+}
+
+.payment-success p {
+    font-size: 1.5rem;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+}
+
+.new-order-btn {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.new-order-btn:hover {
+    background: linear-gradient(45deg, #c0392b, #a93226);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
 }
 
 /* 반응형 디자인 */

@@ -26,79 +26,99 @@
             <div class="menu-section">
                 <h2>🍽️ 음식 메뉴</h2>
                 <div class="menu-grid">
+                    <!-- 세트 메뉴 -->
+                    <div class="menu-item set-menu" data-food="돈가스우동세트" data-price="8500" data-set="true">
+                        <div class="menu-icon">🍜</div>
+                        <h3>돈가스+우동+음료1 세트</h3>
+                        <p>8,500원</p>
+                        <small>돈가스(5,000원) + 우동(4,000원) + 음료(1,000원) - 500원 할인</small>
+                    </div>
+                    <div class="menu-item set-menu" data-food="돈가스메밀소바세트" data-price="8500" data-set="true">
+                        <div class="menu-icon">🍜</div>
+                        <h3>돈가스+메밀소바+음료1 세트</h3>
+                        <p>8,500원</p>
+                        <small>돈가스(5,000원) + 메밀소바(4,000원) + 음료(1,000원) - 500원 할인</small>
+                    </div>
+                    <div class="menu-item set-menu" data-food="떡볶이순대튀김세트" data-price="9500" data-set="true">
+                        <div class="menu-icon">🍜</div>
+                        <h3>떡볶이+순대+튀김+음료1 세트</h3>
+                        <p>9,500원</p>
+                        <small>떡볶이(3,500원) + 순대(4,000원) + 튀김(3,000원) + 음료(1,000원) - 1,000원 할인</small>
+                    </div>
+                    
+                    <!-- 단품 메뉴 -->
                     <div class="menu-item" data-food="떡볶이" data-price="3500">
-                        <img src="https://via.placeholder.com/100x100/FF6B6B/FFFFFF?text=🍜" alt="떡볶이">
+                        <div class="menu-icon">🍜</div>
                         <h3>떡볶이</h3>
                         <p>3,500원</p>
                     </div>
                     <div class="menu-item" data-food="김밥" data-price="3000">
-                        <img src="https://via.placeholder.com/100x100/4ECDC4/FFFFFF?text=🍙" alt="김밥">
+                        <div class="menu-icon">🍙</div>
                         <h3>김밥</h3>
                         <p>3,000원</p>
                     </div>
                     <div class="menu-item" data-food="라면" data-price="4000">
-                        <img src="https://via.placeholder.com/100x100/FFA07A/FFFFFF?text=🍜" alt="라면">
+                        <div class="menu-icon">🍜</div>
                         <h3>라면</h3>
                         <p>4,000원</p>
                     </div>
                     <div class="menu-item" data-food="순대" data-price="4000">
-                        <img src="https://via.placeholder.com/100x100/8B4513/FFFFFF?text=🌭" alt="순대">
+                        <div class="menu-icon">🌭</div>
                         <h3>순대</h3>
                         <p>4,000원</p>
                     </div>
                     <div class="menu-item" data-food="어묵" data-price="2500">
-                        <img src="https://via.placeholder.com/100x100/DEB887/FFFFFF?text=🍢" alt="어묵">
+                        <div class="menu-icon">🍢</div>
                         <h3>어묵</h3>
                         <p>2,500원</p>
                     </div>
                     <div class="menu-item" data-food="튀김" data-price="3000">
-                        <img src="https://via.placeholder.com/100x100/FFD700/FFFFFF?text=🍤" alt="튀김">
+                        <div class="menu-icon">🍤</div>
                         <h3>튀김</h3>
                         <p>3,000원</p>
+                    </div>
+                    <div class="menu-item" data-food="돈가스" data-price="5000">
+                        <div class="menu-icon">🍖</div>
+                        <h3>돈가스</h3>
+                        <p>5,000원</p>
+                    </div>
+                    <div class="menu-item" data-food="우동" data-price="4000">
+                        <div class="menu-icon">🍜</div>
+                        <h3>우동</h3>
+                        <p>4,000원</p>
+                    </div>
+                    <div class="menu-item" data-food="메밀소바" data-price="4000">
+                        <div class="menu-icon">🍜</div>
+                        <h3>메밀소바</h3>
+                        <p>4,000원</p>
+                    </div>
+                    
+                    <!-- 음료 메뉴 -->
+                    <div class="menu-item" data-food="사이다" data-price="1000">
+                        <div class="menu-icon">🥤</div>
+                        <h3>사이다</h3>
+                        <p>1,000원</p>
+                    </div>
+                    <div class="menu-item" data-food="콜라" data-price="1000">
+                        <div class="menu-icon">🥤</div>
+                        <h3>콜라</h3>
+                        <p>1,000원</p>
+                    </div>
+                    <div class="menu-item" data-food="웰치스" data-price="1000">
+                        <div class="menu-icon">🥤</div>
+                        <h3>웰치스</h3>
+                        <p>1,000원</p>
                     </div>
                 </div>
             </div>
 
-            <div class="options-section" id="optionsSection" style="display: none;">
-                <h2>⚙️ 옵션 선택</h2>
-                
-                <div class="option-group">
-                    <h3>🌶️ 매운 정도 선택</h3>
-                    <div class="button-group">
-                        <button class="option-btn" data-option="순한맛">순한맛</button>
-                        <button class="option-btn" data-option="보통맛">보통맛</button>
-                    </div>
+            <div class="quantity-section" id="quantitySection" style="display: none;">
+                <h2>📦 수량 선택</h2>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" id="minusBtn">-</button>
+                    <span id="quantity">1</span>
+                    <button class="quantity-btn" id="plusBtn">+</button>
                 </div>
-
-                <div class="option-group">
-                    <h3>🍯 소스 선택</h3>
-                    <div class="button-group">
-                        <button class="option-btn" data-option="고추장">고추장</button>
-                        <button class="option-btn" data-option="마요네즈">마요네즈</button>
-                        <button class="option-btn" data-option="케찹">케찹</button>
-                        <button class="option-btn" data-option="소스없음">소스없음</button>
-                    </div>
-                </div>
-
-                <div class="option-group">
-                    <h3>🍽️ 사이드 메뉴</h3>
-                    <div class="button-group">
-                        <button class="option-btn" data-option="김치">김치 (+500원)</button>
-                        <button class="option-btn" data-option="단무지">단무지 (+300원)</button>
-                        <button class="option-btn" data-option="콜라">콜라 (+1000원)</button>
-                        <button class="option-btn" data-option="사이드없음">사이드없음</button>
-                    </div>
-                </div>
-
-                <div class="quantity-section">
-                    <h3>📦 수량</h3>
-                    <div class="quantity-controls">
-                        <button class="quantity-btn" id="minusBtn">-</button>
-                        <span id="quantity">1</span>
-                        <button class="quantity-btn" id="plusBtn">+</button>
-                    </div>
-                </div>
-
                 <div class="add-to-cart">
                     <button class="add-cart-btn" id="addToCartBtn">🛒 장바구니에 추가</button>
                 </div>
@@ -111,6 +131,41 @@
             <div class="cart-total">
                 <h3>총 금액: <span id="totalPrice">0원</span></h3>
                 <button class="order-complete-btn" id="orderCompleteBtn">주문 완료</button>
+            </div>
+        </div>
+
+        <!-- 결제 화면 -->
+        <div class="payment-section" id="paymentSection" style="display: none;">
+            <h2>💳 결제 방법 선택</h2>
+            <div class="payment-options">
+                <div class="payment-option" data-method="card">
+                    <div class="payment-icon">💳</div>
+                    <h3>카드결제</h3>
+                    <p>신용카드, 체크카드</p>
+                </div>
+                <div class="payment-option" data-method="mobile">
+                    <div class="payment-icon">📱</div>
+                    <h3>모바일쿠폰결제</h3>
+                    <p>카카오페이, 네이버페이</p>
+                </div>
+            </div>
+            <div class="payment-total">
+                <h3>결제 금액: <span id="paymentAmount">0원</span></h3>
+                <button class="payment-btn" id="processPaymentBtn" style="display: none;">결제하기</button>
+            </div>
+        </div>
+
+        <!-- 결제 완료 화면 -->
+        <div class="payment-complete-section" id="paymentCompleteSection" style="display: none;">
+            <div class="payment-animation">
+                <div class="loading-spinner"></div>
+                <h2>결제 처리 중...</h2>
+            </div>
+            <div class="payment-success" style="display: none;">
+                <div class="success-icon">✅</div>
+                <h2>결제가 완료되었습니다!</h2>
+                <p>주문번호: <span id="orderNumber"></span></p>
+                <button class="new-order-btn" onclick="resetOrder()">새로운 주문</button>
             </div>
         </div>
     </div>
