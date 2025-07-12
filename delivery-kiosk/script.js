@@ -11,46 +11,46 @@ let currentCategory = 'main';
 // 카테고리별 음식점 데이터
 const restaurantData = {
     '한식': [
-        { name: '한식당', icon: '🍚', description: '한식 전문점', deliveryTime: '35-45분', minOrder: 12000 },
-        { name: '맛있는집', icon: '🍚', description: '가정식 한식', deliveryTime: '30-40분', minOrder: 15000 },
-        { name: '전통한식', icon: '🍚', description: '전통 한식', deliveryTime: '40-50분', minOrder: 20000 },
-        { name: '한끼한끼', icon: '🍚', description: '간편 한식', deliveryTime: '25-35분', minOrder: 10000 }
+        { name: '한식당', description: '한식 전문점', deliveryTime: '35-45분', minOrder: 12000 },
+        { name: '맛있는집', description: '가정식 한식', deliveryTime: '30-40분', minOrder: 15000 },
+        { name: '전통한식', description: '전통 한식', deliveryTime: '40-50분', minOrder: 20000 },
+        { name: '한끼한끼', description: '간편 한식', deliveryTime: '25-35분', minOrder: 10000 }
     ],
     '중식': [
-        { name: '중국집', icon: '🥢', description: '중식 전문점', deliveryTime: '30-40분', minOrder: 10000 },
-        { name: '만리장성', icon: '🥢', description: '고급 중식', deliveryTime: '35-45분', minOrder: 18000 },
-        { name: '차이나타운', icon: '🥢', description: '전통 중식', deliveryTime: '40-50분', minOrder: 22000 },
-        { name: '중화요리', icon: '🥢', description: '현대 중식', deliveryTime: '25-35분', minOrder: 12000 }
+        { name: '중국집', description: '중식 전문점', deliveryTime: '30-40분', minOrder: 10000 },
+        { name: '만리장성', description: '고급 중식', deliveryTime: '35-45분', minOrder: 18000 },
+        { name: '차이나타운', description: '전통 중식', deliveryTime: '40-50분', minOrder: 22000 },
+        { name: '중화요리', description: '현대 중식', deliveryTime: '25-35분', minOrder: 12000 }
     ],
     '일식': [
-        { name: '스시로', icon: '🍣', description: '일식 전문점', deliveryTime: '30-40분', minOrder: 25000 },
-        { name: '우동집', icon: '🍜', description: '우동 전문점', deliveryTime: '25-35분', minOrder: 15000 },
-        { name: '돈부리', icon: '🍱', description: '돈부리 전문', deliveryTime: '20-30분', minOrder: 12000 },
-        { name: '라멘집', icon: '🍜', description: '라멘 전문점', deliveryTime: '25-35분', minOrder: 18000 }
+        { name: '스시로', description: '일식 전문점', deliveryTime: '30-40분', minOrder: 25000 },
+        { name: '우동집', description: '우동 전문점', deliveryTime: '25-35분', minOrder: 15000 },
+        { name: '돈부리', description: '돈부리 전문', deliveryTime: '20-30분', minOrder: 12000 },
+        { name: '라멘집', description: '라멘 전문점', deliveryTime: '25-35분', minOrder: 18000 }
     ],
     '치킨': [
-        { name: '맛있는치킨', icon: '🍗', description: '치킨 전문점', deliveryTime: '30-40분', minOrder: 15000 },
-        { name: '바삭치킨', icon: '🍗', description: '바삭한 치킨', deliveryTime: '25-35분', minOrder: 18000 },
-        { name: '양념치킨', icon: '🍗', description: '양념 치킨', deliveryTime: '30-40분', minOrder: 20000 },
-        { name: '치킨천국', icon: '🍗', description: '다양한 치킨', deliveryTime: '35-45분', minOrder: 22000 }
+        { name: '맛있는치킨', description: '치킨 전문점', deliveryTime: '30-40분', minOrder: 15000 },
+        { name: '바삭치킨', description: '바삭한 치킨', deliveryTime: '25-35분', minOrder: 18000 },
+        { name: '양념치킨', description: '양념 치킨', deliveryTime: '30-40분', minOrder: 20000 },
+        { name: '치킨천국', description: '다양한 치킨', deliveryTime: '35-45분', minOrder: 22000 }
     ],
     '피자': [
-        { name: '신선한피자', icon: '🍕', description: '피자 전문점', deliveryTime: '25-35분', minOrder: 18000 },
-        { name: '도미노피자', icon: '🍕', description: '프리미엄 피자', deliveryTime: '30-40분', minOrder: 25000 },
-        { name: '피자헛', icon: '🍕', description: '미국식 피자', deliveryTime: '25-35분', minOrder: 20000 },
-        { name: '피자스쿨', icon: '🍕', description: '학생 피자', deliveryTime: '20-30분', minOrder: 15000 }
+        { name: '신선한피자', description: '피자 전문점', deliveryTime: '25-35분', minOrder: 18000 },
+        { name: '도미노피자', description: '프리미엄 피자', deliveryTime: '30-40분', minOrder: 25000 },
+        { name: '피자헛', description: '미국식 피자', deliveryTime: '25-35분', minOrder: 20000 },
+        { name: '피자스쿨', description: '학생 피자', deliveryTime: '20-30분', minOrder: 15000 }
     ],
     '분식': [
-        { name: '분식점', icon: '🍜', description: '분식 전문점', deliveryTime: '20-30분', minOrder: 8000 },
-        { name: '떡볶이천국', icon: '🍡', description: '떡볶이 전문', deliveryTime: '15-25분', minOrder: 6000 },
-        { name: '분식왕', icon: '🍜', description: '다양한 분식', deliveryTime: '25-35분', minOrder: 10000 },
-        { name: '분식스쿨', icon: '🍜', description: '학생 분식', deliveryTime: '20-30분', minOrder: 7000 }
+        { name: '분식점', description: '분식 전문점', deliveryTime: '20-30분', minOrder: 8000 },
+        { name: '떡볶이천국', description: '떡볶이 전문', deliveryTime: '15-25분', minOrder: 6000 },
+        { name: '분식왕', description: '다양한 분식', deliveryTime: '25-35분', minOrder: 10000 },
+        { name: '분식스쿨', description: '학생 분식', deliveryTime: '20-30분', minOrder: 7000 }
     ],
     '카페': [
-        { name: '카페', icon: '☕', description: '음료/디저트', deliveryTime: '15-25분', minOrder: 5000 },
-        { name: '스타벅스', icon: '☕', description: '프리미엄 커피', deliveryTime: '20-30분', minOrder: 8000 },
-        { name: '투썸플레이스', icon: '☕', description: '고급 카페', deliveryTime: '25-35분', minOrder: 12000 },
-        { name: '이디야', icon: '☕', description: '대중적 카페', deliveryTime: '15-25분', minOrder: 6000 }
+        { name: '카페', description: '음료/디저트', deliveryTime: '15-25분', minOrder: 5000 },
+        { name: '스타벅스', description: '프리미엄 커피', deliveryTime: '20-30분', minOrder: 8000 },
+        { name: '투썸플레이스', description: '고급 카페', deliveryTime: '25-35분', minOrder: 12000 },
+        { name: '이디야', description: '대중적 카페', deliveryTime: '15-25분', minOrder: 6000 }
     ]
 };
 
@@ -697,7 +697,6 @@ function displayRestaurants(category) {
         restaurantItem.onclick = () => selectRestaurant(restaurant.name);
         
         restaurantItem.innerHTML = `
-            <div class="restaurant-icon">${restaurant.icon}</div>
             <h3>${restaurant.name}</h3>
             <p>${restaurant.description}</p>
             <p class="delivery-time">배달시간: ${restaurant.deliveryTime}</p>
@@ -957,10 +956,11 @@ function selectDeliveryFee(feeType) {
     event.target.closest('.fee-option').classList.add('selected');
     selectedDeliveryFee = feeType;
     
-    // 다음 섹션 표시
-    paymentSection.style.display = 'block';
+    // 결제하기 버튼 표시
+    const payBtn = document.querySelector('.pay-btn');
+    payBtn.style.display = 'inline-block';
     
-    speak(`${deliveryFees[feeType].name}이 선택되었습니다.`);
+    speak(`${deliveryFees[feeType].name}이 선택되었습니다. 결제를 진행해주세요.`);
 }
 
 // 결제 방법 선택
