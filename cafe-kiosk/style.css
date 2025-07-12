@@ -142,6 +142,17 @@ h3 {
     box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
 }
 
+/* 핫 버튼 기본 스타일 - 붉은색 */
+.temperature-btn[data-option="핫"] {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+
+.temperature-btn[data-option="핫"]:hover {
+    background: linear-gradient(45deg, #c0392b, #a93226);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+}
+
 /* 핫 버튼 선택 시 - 현재 색상 유지 */
 .temperature-btn[data-option="핫"].selected {
     background: linear-gradient(45deg, #e74c3c, #c0392b);
@@ -160,22 +171,22 @@ h3 {
     position: relative;
 }
 
-/* 사이즈 및 추가 옵션 버튼 - 음료 메뉴 버튼과 동일한 디자인 */
+/* 사이즈 및 추가 옵션 버튼 - 초록 계열 디자인 */
 .size-btn, .extra-btn {
-    background: linear-gradient(45deg, #3498db, #2980b9);
+    background: linear-gradient(45deg, #27ae60, #229954);
 }
 
 .size-btn:hover, .extra-btn:hover {
-    background: linear-gradient(45deg, #2980b9, #1f4e79);
+    background: linear-gradient(45deg, #229954, #1e8449);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
 }
 
 .size-btn.selected, .extra-btn.selected {
-    background: linear-gradient(45deg, #2980b9, #1f4e79);
-    border-color: #3498db;
+    background: linear-gradient(45deg, #229954, #1e8449);
+    border-color: #27ae60;
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
     position: relative;
 }
 
