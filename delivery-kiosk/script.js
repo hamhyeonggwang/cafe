@@ -921,12 +921,16 @@ function selectDeliveryTime(time) {
     event.target.classList.add('selected');
     selectedDeliveryTime = time;
     
+    // 배달비 타입 설정
+    selectedDeliveryFee = time;
+    
     // 빠른배달 선택 시 장바구니에 3000원 추가
     if (time === 'fast') {
         const fastDeliveryItem = {
             name: '빠른배달',
             price: 3000,
             quantity: 1,
+            icon: '🛵',
             type: '배달비'
         };
         
@@ -935,13 +939,13 @@ function selectDeliveryTime(time) {
         cart.push(fastDeliveryItem);
         updateCartDisplay();
         
-        speak('빠른배달이 선택되었습니다. 3,000원이 추가되었습니다.');
+        speak('빠른배달이 선택되었습니다. 3,000원이 추가되었습니다. 결제를 진행해주세요.');
     } else if (time === 'free') {
         // 무료배달 선택 시 기존 빠른배달 항목 제거
         cart = cart.filter(item => item.name !== '빠른배달');
         updateCartDisplay();
         
-        speak('무료배달이 선택되었습니다.');
+        speak('무료배달이 선택되었습니다. 결제를 진행해주세요.');
     }
 }
 
