@@ -63,10 +63,8 @@
             <div class="date-time-grid">
                 <div class="date-section">
                     <h3>📅 날짜 선택</h3>
-                    <div class="date-buttons">
-                        <button class="date-btn" onclick="selectDate('오늘')">오늘</button>
-                        <button class="date-btn" onclick="selectDate('내일')">내일</button>
-                        <button class="date-btn" onclick="selectDate('모레')">모레</button>
+                    <div class="date-buttons" id="dateButtons">
+                        <!-- 날짜 버튼들이 JavaScript로 동적 생성됩니다 -->
                     </div>
                 </div>
                 <div class="time-section">
@@ -179,6 +177,42 @@
             <div id="cartItems"></div>
             <div class="cart-total">
                 <h3>총 금액: <span id="totalPrice">0원</span></h3>
+                <button class="order-complete-btn" id="orderCompleteBtn">예매 완료</button>
+            </div>
+        </div>
+
+        <!-- 결제 화면 -->
+        <div class="payment-section" id="paymentSection" style="display: none;">
+            <h2>💳 결제 방법 선택</h2>
+            <div class="payment-options">
+                <div class="payment-option" data-method="card">
+                    <div class="payment-icon">💳</div>
+                    <h3>카드결제</h3>
+                    <p>신용카드, 체크카드</p>
+                </div>
+                <div class="payment-option" data-method="mobile">
+                    <div class="payment-icon">📱</div>
+                    <h3>모바일쿠폰결제</h3>
+                    <p>카카오페이, 네이버페이</p>
+                </div>
+            </div>
+            <div class="payment-total">
+                <h3>결제 금액: <span id="paymentAmount">0원</span></h3>
+                <button class="payment-btn" id="processPaymentBtn" style="display: none;">결제하기</button>
+            </div>
+        </div>
+
+        <!-- 결제 완료 화면 -->
+        <div class="payment-complete-section" id="paymentCompleteSection" style="display: none;">
+            <div class="payment-animation">
+                <div class="loading-spinner"></div>
+                <h2>결제 처리 중...</h2>
+            </div>
+            <div class="payment-success" style="display: none;">
+                <div class="success-icon">✅</div>
+                <h2>결제가 완료되었습니다!</h2>
+                <p>예매번호: <span id="orderNumber"></span></p>
+                <button class="new-order-btn" onclick="resetOrder()">새로운 예매</button>
             </div>
         </div>
     </div>

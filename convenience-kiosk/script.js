@@ -73,6 +73,16 @@ const totalPrice = document.getElementById('totalPrice');
 const orderCompleteBtn = document.getElementById('orderCompleteBtn');
 const optionButtons = document.querySelectorAll('.option-btn');
 
+// 결제 관련 DOM 요소들
+const paymentSection = document.getElementById('paymentSection');
+const paymentOptions = document.querySelectorAll('.payment-option');
+const paymentAmount = document.getElementById('paymentAmount');
+const processPaymentBtn = document.getElementById('processPaymentBtn');
+const paymentCompleteSection = document.getElementById('paymentCompleteSection');
+const paymentAnimation = document.querySelector('.payment-animation');
+const paymentSuccess = document.querySelector('.payment-success');
+const orderNumber = document.getElementById('orderNumber');
+
 // 검색 기능
 function searchProducts() {
     const searchTerm = searchInput.value.trim().toLowerCase();
@@ -266,7 +276,7 @@ function resetSelections() {
     optionsSection.style.display = 'none';
 }
 
-// 주문 완료
+// 주문 완료 - 결제 화면으로 이동
 orderCompleteBtn.addEventListener('click', function() {
     if (cart.length === 0) {
         alert('장바구니가 비어있습니다.');
@@ -275,28 +285,74 @@ orderCompleteBtn.addEventListener('click', function() {
     }
     
     const total = cart.reduce((sum, item) => sum + item.price, 0);
-    const orderSummary = cart.map(item => 
-        `${item.product} ${item.quantity}개 (${item.paymentMethod})`
-    ).join('\n');
+    paymentAmount.textContent = total.toLocaleString() + '원';
     
-    const orderMessage = `
-주문이 완료되었습니다!
-
-주문 내역:
-${orderSummary}
-
-총 금액: ${total.toLocaleString()}원
-
-감사합니다! 😊
-    `;
+    // 결제 화면 표시
+    paymentSection.style.display = 'block';
+    speak('결제 방법을 선택해주세요.');
     
-    alert(orderMessage);
-    speak('주문이 완료되었습니다. 감사합니다!');
-    
-    // 훈련 완료 기록
-    if (typeof completeTraining === 'function') {
-        completeTraining('편의점 훈련');
+    console.log('결제 화면 표시');
+});
+
+// 결제 방법 선택
+paymentOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        // 이전 선택 해제
+        paymentOptions.forEach(opt => opt.classList.remove('selected'));
+        
+        // 현재 선택
+        this.classList.add('selected');
+        const selectedMethod = this.dataset.method;
+        
+        // 결제하기 버튼 표시
+        processPaymentBtn.style.display = 'inline-block';
+        
+        const methodText = selectedMethod === 'card' ? '카드결제' : '모바일쿠폰결제';
+        speak(`${methodText}가 선택되었습니다.`);
+        
+        console.log('결제 방법 선택:', selectedMethod);
+    });
+});
+
+// 결제 처리
+processPaymentBtn.addEventListener('click', function() {
+    const selectedPayment = document.querySelector('.payment-option.selected');
+    if (!selectedPayment) {
+        alert('결제 방법을 선택해주세요.');
+        speak('결제 방법을 선택해주세요.');
+        return;
     }
+    
+    // 결제 화면 숨기기
+    paymentSection.style.display = 'none';
+    
+    // 결제 완료 화면 표시
+    paymentCompleteSection.style.display = 'block';
+    paymentAnimation.style.display = 'block';
+    paymentSuccess.style.display = 'none';
+    
+    speak('결제를 처리하고 있습니다.');
+    
+    // 3초 후 결제 완료 표시
+    setTimeout(() => {
+        paymentAnimation.style.display = 'none';
+        paymentSuccess.style.display = 'block';
+        
+        // 주문번호 생성 (현재 시간 기반)
+        const orderNum = 'CONV' + Date.now().toString().slice(-6);
+        orderNumber.textContent = orderNum;
+        
+        speak('결제가 완료되었습니다.');
+        
+        console.log('결제 완료, 주문번호:', orderNum);
+    }, 3000);
+});
+
+// 새로운 주문 시작
+function resetOrder() {
+    // 모든 화면 초기화
+    paymentSection.style.display = 'none';
+    paymentCompleteSection.style.display = 'none';
     
     // 장바구니 초기화
     cart = [];
@@ -308,8 +364,14 @@ ${orderSummary}
     resetSelections();
     menuSection.style.display = 'none';
     
-    console.log('주문 완료');
-});
+    // 결제 옵션 선택 해제
+    paymentOptions.forEach(opt => opt.classList.remove('selected'));
+    processPaymentBtn.style.display = 'none';
+    
+    speak('새로운 주문을 시작합니다.');
+    
+    console.log('새로운 주문 시작');
+}
 
 // 대시보드로 돌아가기
 function goBack() {

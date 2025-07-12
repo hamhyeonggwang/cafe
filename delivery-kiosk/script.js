@@ -147,6 +147,16 @@ const cartItems = document.getElementById('cartItems');
 const totalPrice = document.getElementById('totalPrice');
 const menuGrid = document.getElementById('menuGrid');
 
+// 결제 관련 DOM 요소들
+const finalPaymentSection = document.getElementById('finalPaymentSection');
+const finalPaymentOptions = document.querySelectorAll('#finalPaymentSection .payment-option');
+const finalPaymentAmount = document.getElementById('finalPaymentAmount');
+const processFinalPaymentBtn = document.getElementById('processFinalPaymentBtn');
+const paymentCompleteSection = document.getElementById('paymentCompleteSection');
+const paymentAnimation = document.querySelector('.payment-animation');
+const paymentSuccess = document.querySelector('.payment-success');
+const orderNumber = document.getElementById('orderNumber');
+
 // 음식점 선택
 function selectRestaurant(restaurantName) {
     // 이전 선택 해제
@@ -354,7 +364,28 @@ function selectDeliveryTime(time) {
     event.target.classList.add('selected');
     selectedDeliveryTime = time;
     
-    speak(`${time} 배달 시간이 선택되었습니다.`);
+    // 빠른배달 선택 시 장바구니에 3000원 추가
+    if (time === 'fast') {
+        const fastDeliveryItem = {
+            name: '빠른배달',
+            price: 3000,
+            quantity: 1,
+            type: '배달비'
+        };
+        
+        // 기존 빠른배달 항목이 있으면 제거
+        cart = cart.filter(item => item.name !== '빠른배달');
+        cart.push(fastDeliveryItem);
+        updateCartDisplay();
+        
+        speak('빠른배달이 선택되었습니다. 3,000원이 추가되었습니다.');
+    } else if (time === 'free') {
+        // 무료배달 선택 시 기존 빠른배달 항목 제거
+        cart = cart.filter(item => item.name !== '빠른배달');
+        updateCartDisplay();
+        
+        speak('무료배달이 선택되었습니다.');
+    }
 }
 
 // 배달비 선택
@@ -483,14 +514,116 @@ function cancelPayment() {
     paymentSection.style.display = 'block';
 }
 
-// 주문 완료
+// 주문 완료 - 결제 화면으로 이동
 function completeOrder() {
-    speak('주문이 완료되었습니다. 감사합니다!');
-    
-    // 훈련 완료 기록
-    if (typeof completeTraining === 'function') {
-        completeTraining('배달주문 훈련');
+    if (cart.length === 0) {
+        alert('장바구니가 비어있습니다.');
+        speak('장바구니가 비어있습니다.');
+        return;
     }
+    
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    finalPaymentAmount.textContent = total.toLocaleString() + '원';
+    
+    // 결제 화면 표시
+    finalPaymentSection.style.display = 'block';
+    speak('결제 방법을 선택해주세요.');
+    
+    console.log('결제 화면 표시');
+}
+
+// 결제 방법 선택
+finalPaymentOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        // 이전 선택 해제
+        finalPaymentOptions.forEach(opt => opt.classList.remove('selected'));
+        
+        // 현재 선택
+        this.classList.add('selected');
+        const selectedMethod = this.dataset.method;
+        
+        // 결제하기 버튼 표시
+        processFinalPaymentBtn.style.display = 'inline-block';
+        
+        const methodText = selectedMethod === 'card' ? '카드결제' : '모바일쿠폰결제';
+        speak(`${methodText}가 선택되었습니다.`);
+        
+        console.log('결제 방법 선택:', selectedMethod);
+    });
+});
+
+// 결제 처리
+processFinalPaymentBtn.addEventListener('click', function() {
+    const selectedPayment = document.querySelector('#finalPaymentSection .payment-option.selected');
+    if (!selectedPayment) {
+        alert('결제 방법을 선택해주세요.');
+        speak('결제 방법을 선택해주세요.');
+        return;
+    }
+    
+    // 결제 화면 숨기기
+    finalPaymentSection.style.display = 'none';
+    
+    // 결제 완료 화면 표시
+    paymentCompleteSection.style.display = 'block';
+    paymentAnimation.style.display = 'block';
+    paymentSuccess.style.display = 'none';
+    
+    speak('결제를 처리하고 있습니다.');
+    
+    // 3초 후 결제 완료 표시
+    setTimeout(() => {
+        paymentAnimation.style.display = 'none';
+        paymentSuccess.style.display = 'block';
+        
+        // 주문번호 생성 (현재 시간 기반)
+        const orderNum = 'DELIVERY' + Date.now().toString().slice(-6);
+        orderNumber.textContent = orderNum;
+        
+        speak('결제가 완료되었습니다.');
+        
+        console.log('결제 완료, 주문번호:', orderNum);
+    }, 3000);
+});
+
+// 새로운 주문 시작
+function resetOrder() {
+    // 모든 화면 초기화
+    finalPaymentSection.style.display = 'none';
+    paymentCompleteSection.style.display = 'none';
+    
+    // 장바구니 초기화
+    cart = [];
+    updateCartDisplay();
+    
+    // 모든 선택 초기화
+    selectedRestaurant = null;
+    selectedAddress = '';
+    selectedDeliveryTime = '';
+    selectedDeliveryFee = '';
+    selectedPayment = '';
+    currentCategory = 'main';
+    
+    // 모든 섹션 숨기기
+    restaurantSection.style.display = 'block';
+    menuSection.style.display = 'none';
+    deliverySection.style.display = 'none';
+    deliveryFeeSection.style.display = 'none';
+    paymentSection.style.display = 'none';
+    completeSection.style.display = 'none';
+    
+    // 선택 해제
+    document.querySelectorAll('.restaurant-item, .time-btn, .fee-option, .payment-option').forEach(item => {
+        item.classList.remove('selected');
+    });
+    
+    // 결제 옵션 선택 해제
+    finalPaymentOptions.forEach(opt => opt.classList.remove('selected'));
+    processFinalPaymentBtn.style.display = 'none';
+    
+    speak('새로운 주문을 시작합니다.');
+    
+    console.log('새로운 주문 시작');
 }
 
 // 대시보드로 돌아가기

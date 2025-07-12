@@ -30,6 +30,17 @@ const personCountSpan = document.getElementById('personCount');
 const ticketPriceSpan = document.getElementById('ticketPrice');
 const snackQuantitySpan = document.getElementById('snackQuantity');
 
+// 결제 관련 DOM 요소들
+const orderCompleteBtn = document.getElementById('orderCompleteBtn');
+const paymentSection = document.getElementById('paymentSection');
+const paymentOptions = document.querySelectorAll('.payment-option');
+const paymentAmount = document.getElementById('paymentAmount');
+const processPaymentBtn = document.getElementById('processPaymentBtn');
+const paymentCompleteSection = document.getElementById('paymentCompleteSection');
+const paymentAnimation = document.querySelector('.payment-animation');
+const paymentSuccess = document.querySelector('.payment-success');
+const orderNumber = document.getElementById('orderNumber');
+
 // 영화 선택
 function selectMovie(movieName, price) {
     // 이전 선택 해제
@@ -97,31 +108,7 @@ function changePerson(delta) {
     }
 }
 
-// 좌석 생성
-function generateSeats() {
-    const seatsContainer = document.querySelector('.seats-container');
-    seatsContainer.innerHTML = '';
-    
-    // 8행 10열 좌석 생성
-    for (let row = 1; row <= 8; row++) {
-        for (let col = 1; col <= 10; col++) {
-            const seat = document.createElement('div');
-            seat.className = 'seat';
-            seat.textContent = `${String.fromCharCode(64 + row)}${col}`;
-            seat.dataset.row = row;
-            seat.dataset.col = col;
-            
-            // 일부 좌석은 이미 예매된 것으로 설정
-            if (Math.random() < 0.3) {
-                seat.classList.add('occupied');
-            } else {
-                seat.onclick = () => selectSeat(seat);
-            }
-            
-            seatsContainer.appendChild(seat);
-        }
-    }
-}
+
 
 // 좌석 선택
 function selectSeat(seatElement) {
@@ -295,8 +282,8 @@ function proceedToSnacks() {
     speak('영화 예매가 완료되었습니다. 간식 주문을 진행합니다.');
 }
 
-// 주문 완료
-function completeOrder() {
+// 예매 완료 - 결제 화면으로 이동
+orderCompleteBtn.addEventListener('click', function() {
     if (cart.length === 0) {
         alert('장바구니가 비어있습니다.');
         speak('장바구니가 비어있습니다.');
@@ -304,34 +291,109 @@ function completeOrder() {
     }
     
     const total = cart.reduce((sum, item) => sum + item.price, 0);
+    paymentAmount.textContent = total.toLocaleString() + '원';
     
-    // 주문 요약 표시
-    const ticketSummary = document.getElementById('ticketSummary');
-    const snackSummary = document.getElementById('snackSummary');
-    const totalAmount = document.getElementById('totalAmount');
+    // 결제 화면 표시
+    paymentSection.style.display = 'block';
+    speak('결제 방법을 선택해주세요.');
     
-    const ticketItems = cart.filter(item => item.type === '영화예매');
-    const snackItems = cart.filter(item => item.type === '간식');
-    
-    ticketSummary.innerHTML = ticketItems.map(item => 
-        `<p>${item.name} - ${item.price.toLocaleString()}원</p>`
-    ).join('');
-    
-    snackSummary.innerHTML = snackItems.map(item => 
-        `<p>${item.name} ${item.quantity}개 - ${item.price.toLocaleString()}원</p>`
-    ).join('');
-    
-    totalAmount.textContent = total.toLocaleString() + '원';
-    
-    // 완료 섹션 표시
-    completeSection.style.display = 'block';
-    
-    speak('주문이 완료되었습니다. 감사합니다!');
-    
-    // 훈련 완료 기록
-    if (typeof completeTraining === 'function') {
-        completeTraining('영화관 훈련');
+    console.log('결제 화면 표시');
+});
+
+// 결제 방법 선택
+paymentOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        // 이전 선택 해제
+        paymentOptions.forEach(opt => opt.classList.remove('selected'));
+        
+        // 현재 선택
+        this.classList.add('selected');
+        const selectedMethod = this.dataset.method;
+        
+        // 결제하기 버튼 표시
+        processPaymentBtn.style.display = 'inline-block';
+        
+        const methodText = selectedMethod === 'card' ? '카드결제' : '모바일쿠폰결제';
+        speak(`${methodText}가 선택되었습니다.`);
+        
+        console.log('결제 방법 선택:', selectedMethod);
+    });
+});
+
+// 결제 처리
+processPaymentBtn.addEventListener('click', function() {
+    const selectedPayment = document.querySelector('.payment-option.selected');
+    if (!selectedPayment) {
+        alert('결제 방법을 선택해주세요.');
+        speak('결제 방법을 선택해주세요.');
+        return;
     }
+    
+    // 결제 화면 숨기기
+    paymentSection.style.display = 'none';
+    
+    // 결제 완료 화면 표시
+    paymentCompleteSection.style.display = 'block';
+    paymentAnimation.style.display = 'block';
+    paymentSuccess.style.display = 'none';
+    
+    speak('결제를 처리하고 있습니다.');
+    
+    // 3초 후 결제 완료 표시
+    setTimeout(() => {
+        paymentAnimation.style.display = 'none';
+        paymentSuccess.style.display = 'block';
+        
+        // 주문번호 생성 (현재 시간 기반)
+        const orderNum = 'MOVIE' + Date.now().toString().slice(-6);
+        orderNumber.textContent = orderNum;
+        
+        speak('결제가 완료되었습니다.');
+        
+        console.log('결제 완료, 주문번호:', orderNum);
+    }, 3000);
+});
+
+// 새로운 예매 시작
+function resetOrder() {
+    // 모든 화면 초기화
+    paymentSection.style.display = 'none';
+    paymentCompleteSection.style.display = 'none';
+    
+    // 장바구니 초기화
+    cart = [];
+    updateCartDisplay();
+    
+    // 모든 선택 초기화
+    selectedMovie = null;
+    selectedDate = '';
+    selectedTime = '';
+    selectedSeats = [];
+    selectedDiscount = '없음';
+    selectedSnack = null;
+    snackQuantity = 1;
+    personCount = 1;
+    
+    // 모든 섹션 숨기기
+    movieSection.style.display = 'block';
+    dateTimeSection.style.display = 'none';
+    seatSection.style.display = 'none';
+    discountSection.style.display = 'none';
+    snackSection.style.display = 'none';
+    completeSection.style.display = 'none';
+    
+    // 선택 해제
+    document.querySelectorAll('.movie-item, .date-btn, .time-btn, .discount-btn, .snack-item').forEach(item => {
+        item.classList.remove('selected');
+    });
+    
+    // 결제 옵션 선택 해제
+    paymentOptions.forEach(opt => opt.classList.remove('selected'));
+    processPaymentBtn.style.display = 'none';
+    
+    speak('새로운 예매를 시작합니다.');
+    
+    console.log('새로운 예매 시작');
 }
 
 // 대시보드로 돌아가기
@@ -367,8 +429,65 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+// 날짜 버튼 생성
+function generateDateButtons() {
+    const dateButtons = document.getElementById('dateButtons');
+    const today = new Date();
+    
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+        
+        const button = document.createElement('button');
+        button.className = 'date-btn';
+        button.onclick = () => selectDate(date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' }));
+        
+        if (i === 0) {
+            button.textContent = '오늘';
+        } else if (i === 1) {
+            button.textContent = '내일';
+        } else {
+            button.textContent = date.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' });
+        }
+        
+        dateButtons.appendChild(button);
+    }
+}
+
+// 좌석 배치 개선 - 열 간격 추가
+function generateSeats() {
+    const seatsContainer = document.querySelector('.seats-container');
+    seatsContainer.innerHTML = '';
+    
+    // 8행 10열 좌석 생성
+    for (let row = 1; row <= 8; row++) {
+        for (let col = 1; col <= 10; col++) {
+            const seat = document.createElement('div');
+            seat.className = 'seat';
+            seat.textContent = `${String.fromCharCode(64 + row)}${col}`;
+            seat.dataset.row = row;
+            seat.dataset.col = col;
+            
+            // 열 간격 추가 (1,2,3열 / 4,5,6,7열 / 8,9,10열)
+            if (col === 4 || col === 8) {
+                seat.style.marginRight = '20px';
+            }
+            
+            // 일부 좌석은 이미 예매된 것으로 설정
+            if (Math.random() < 0.3) {
+                seat.classList.add('occupied');
+            } else {
+                seat.onclick = () => selectSeat(seat);
+            }
+            
+            seatsContainer.appendChild(seat);
+        }
+    }
+}
+
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', function() {
+    generateDateButtons();
     speak('영화관 키오스크에 오신 것을 환영합니다. 영화를 선택해주세요.');
     console.log('영화관 키오스크 초기화 완료');
 });
