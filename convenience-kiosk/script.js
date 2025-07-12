@@ -33,10 +33,7 @@ const products = {
     아이스크림: [
         { name: '바닐라아이스크림', price: 2000, image: '🍦', category: '아이스크림' },
         { name: '초코아이스크림', price: 2200, image: '🍦', category: '아이스크림' },
-        { name: '딸기아이스크림', price: 2200, image: '🍦', category: '아이스크림' },
-        { name: '멘토스', price: 1500, image: '🍬', category: '아이스크림' },
-        { name: '껌', price: 500, image: '🍬', category: '아이스크림' },
-        { name: '사탕', price: 300, image: '🍬', category: '아이스크림' }
+        { name: '딸기아이스크림', price: 2200, image: '🍦', category: '아이스크림' }
     ],
     생활용품: [
         { name: '휴지', price: 1500, image: '🧻', category: '생활용품' },
