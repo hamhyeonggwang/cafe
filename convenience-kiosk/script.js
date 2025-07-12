@@ -52,7 +52,6 @@ const products = {
 
 // 전역 변수
 let selectedProduct = null;
-let selectedPaymentMethod = '';
 let quantity = 1;
 let cart = [];
 let currentCategory = '';
@@ -71,7 +70,6 @@ const addToCartBtn = document.getElementById('addToCartBtn');
 const cartItems = document.getElementById('cartItems');
 const totalPrice = document.getElementById('totalPrice');
 const orderCompleteBtn = document.getElementById('orderCompleteBtn');
-const optionButtons = document.querySelectorAll('.option-btn');
 
 // 결제 관련 DOM 요소들
 const paymentSection = document.getElementById('paymentSection');
@@ -158,19 +156,7 @@ function selectProduct(product) {
     speak(`${product.name}가 선택되었습니다. 옵션을 선택해주세요.`);
 }
 
-// 결제 방법 선택
-optionButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        // 이전 선택 해제
-        optionButtons.forEach(btn => btn.classList.remove('selected'));
-        
-        // 현재 버튼 선택
-        this.classList.add('selected');
-        selectedPaymentMethod = this.dataset.option;
-        
-        speak(`${selectedPaymentMethod} 결제가 선택되었습니다.`);
-    });
-});
+
 
 // 수량 조절
 minusBtn.addEventListener('click', function() {
@@ -197,17 +183,10 @@ addToCartBtn.addEventListener('click', function() {
         return;
     }
     
-    if (!selectedPaymentMethod) {
-        alert('결제 방법을 선택해주세요.');
-        speak('결제 방법을 선택해주세요.');
-        return;
-    }
-    
     // 장바구니에 추가
     const cartItem = {
         product: selectedProduct.name,
         category: selectedProduct.category,
-        paymentMethod: selectedPaymentMethod,
         quantity: quantity,
         price: selectedProduct.price * quantity
     };
@@ -236,7 +215,6 @@ function updateCartDisplay() {
         cartItemDiv.innerHTML = `
             <h4>${item.product} ${item.quantity}개</h4>
             <p>카테고리: ${item.category}</p>
-            <p>결제 방법: ${item.paymentMethod}</p>
             <p class="price">${item.price.toLocaleString()}원</p>
             <button onclick="removeFromCart(${index})" style="background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; margin-top: 10px;">삭제</button>
         `;
@@ -263,10 +241,6 @@ function resetSelections() {
         item.classList.remove('selected');
     });
     selectedProduct = null;
-    
-    // 결제 방법 선택 해제
-    optionButtons.forEach(btn => btn.classList.remove('selected'));
-    selectedPaymentMethod = '';
     
     // 수량 초기화
     quantity = 1;
