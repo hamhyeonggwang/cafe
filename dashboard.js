@@ -19,6 +19,15 @@ function goToTraining(type) {
     } else if (type === 'restaurant') {
         speak('식당 키오스크 훈련을 시작합니다.');
         window.location.href = 'restaurant-kiosk/index.html';
+    } else if (type === 'convenience') {
+        speak('편의점 키오스크 훈련을 시작합니다.');
+        window.location.href = 'convenience-kiosk/index.html';
+    } else if (type === 'movie') {
+        speak('영화관 키오스크 훈련을 시작합니다.');
+        window.location.href = 'movie-kiosk/index.html';
+    } else if (type === 'delivery') {
+        speak('배달주문 키오스크 훈련을 시작합니다.');
+        window.location.href = 'delivery-kiosk/index.html';
     }
 }
 

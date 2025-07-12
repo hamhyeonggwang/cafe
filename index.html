@@ -42,7 +42,7 @@
                     <div class="difficulty">난이도: ⭐⭐⭐⭐</div>
                 </div>
 
-                <div class="training-card coming-soon">
+                <div class="training-card" onclick="goToTraining('convenience')">
                     <div class="card-icon">🛒</div>
                     <h3>편의점 키오스크</h3>
                     <p>상품 구매 훈련</p>
@@ -53,10 +53,9 @@
                         <li>결제 방법 선택</li>
                     </ul>
                     <div class="difficulty">난이도: ⭐⭐⭐⭐⭐</div>
-                    <div class="coming-soon-badge">준비 중</div>
                 </div>
 
-                <div class="training-card coming-soon">
+                <div class="training-card" onclick="goToTraining('movie')">
                     <div class="card-icon">🎬</div>
                     <h3>영화관 키오스크</h3>
                     <p>영화 예매 훈련</p>
@@ -64,10 +63,22 @@
                         <li>영화 선택</li>
                         <li>날짜/시간 선택</li>
                         <li>좌석 선택</li>
-                        <li>인원 선택</li>
+                        <li>간식 주문</li>
                     </ul>
                     <div class="difficulty">난이도: ⭐⭐⭐⭐⭐</div>
-                    <div class="coming-soon-badge">준비 중</div>
+                </div>
+
+                <div class="training-card" onclick="goToTraining('delivery')">
+                    <div class="card-icon">🚚</div>
+                    <h3>배달주문 키오스크</h3>
+                    <p>배달 주문 훈련</p>
+                    <ul>
+                        <li>음식점 선택</li>
+                        <li>메뉴 주문</li>
+                        <li>배달 옵션</li>
+                        <li>배달비 선택</li>
+                    </ul>
+                    <div class="difficulty">난이도: ⭐⭐⭐⭐⭐</div>
                 </div>
             </div>
         </div>
@@ -118,9 +129,30 @@
                         <div class="progress-item">
                             <span>식당 훈련</span>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 0%"></div>
+                                <div class="progress-fill" style="width: 100%"></div>
                             </div>
-                            <span>준비 중</span>
+                            <span>완료</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>편의점 훈련</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                            <span>완료</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>영화관 훈련</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                            <span>완료</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>배달주문 훈련</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                            <span>완료</span>
                         </div>
                     </div>
                 </div>

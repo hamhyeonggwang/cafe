@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>편의점 키오스크</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛒 편의점 키오스크</h1>
+            <p>원하시는 상품을 선택해주세요</p>
+            <button class="back-btn" onclick="goBack()">← 대시보드로 돌아가기</button>
+        </header>
+
+        <div class="order-section">
+            <div class="search-section">
+                <h2>🔍 상품 검색</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="상품명을 입력하세요..." class="search-input">
+                    <button class="search-btn" onclick="searchProducts()">검색</button>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h2>📂 카테고리 선택</h2>
+                <div class="category-grid">
+                    <div class="category-item" data-category="음료" onclick="selectCategory('음료')">
+                        <div class="category-icon">🥤</div>
+                        <h3>음료</h3>
+                    </div>
+                    <div class="category-item" data-category="과자" onclick="selectCategory('과자')">
+                        <div class="category-icon">🍪</div>
+                        <h3>과자</h3>
+                    </div>
+                    <div class="category-item" data-category="라면" onclick="selectCategory('라면')">
+                        <div class="category-icon">🍜</div>
+                        <h3>라면</h3>
+                    </div>
+                    <div class="category-item" data-category="빵" onclick="selectCategory('빵')">
+                        <div class="category-icon">🍞</div>
+                        <h3>빵</h3>
+                    </div>
+                    <div class="category-item" data-category="아이스크림" onclick="selectCategory('아이스크림')">
+                        <div class="category-icon">🍦</div>
+                        <h3>아이스크림</h3>
+                    </div>
+                    <div class="category-item" data-category="생활용품" onclick="selectCategory('생활용품')">
+                        <div class="category-icon">🧴</div>
+                        <h3>생활용품</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-section" id="menuSection" style="display: none;">
+                <h2>🛍️ 상품 목록</h2>
+                <div class="menu-grid" id="menuGrid">
+                    <!-- 상품들이 동적으로 추가됩니다 -->
+                </div>
+            </div>
+
+            <div class="options-section" id="optionsSection" style="display: none;">
+                <h2>⚙️ 옵션 선택</h2>
+                
+                <div class="option-group">
+                    <h3>📦 수량</h3>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" id="minusBtn">-</button>
+                        <span id="quantity">1</span>
+                        <button class="quantity-btn" id="plusBtn">+</button>
+                    </div>
+                </div>
+
+                <div class="option-group">
+                    <h3>💳 결제 방법</h3>
+                    <div class="button-group">
+                        <button class="option-btn" data-option="현금">현금</button>
+                        <button class="option-btn" data-option="카드">카드</button>
+                        <button class="option-btn" data-option="모바일결제">모바일결제</button>
+                    </div>
+                </div>
+
+                <div class="add-to-cart">
+                    <button class="add-cart-btn" id="addToCartBtn">🛒 장바구니에 추가</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-section">
+            <h2>🛒 주문 내역</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                <h3>총 금액: <span id="totalPrice">0원</span></h3>
+                <button class="order-complete-btn" id="orderCompleteBtn">주문 완료</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

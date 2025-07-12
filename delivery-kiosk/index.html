@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배달주문 키오스크</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚚 배달주문 키오스크</h1>
+            <p>음식점을 선택하고 배달 주문을 해보세요</p>
+            <button class="back-btn" onclick="goBack()">← 대시보드로 돌아가기</button>
+        </header>
+
+        <!-- 음식점 선택 섹션 -->
+        <div class="order-section" id="restaurantSection">
+            <h2>🏪 음식점 선택</h2>
+            <div class="restaurant-grid">
+                <div class="restaurant-item" data-restaurant="맛있는치킨" onclick="selectRestaurant('맛있는치킨')">
+                    <div class="restaurant-icon">🍗</div>
+                    <h3>맛있는치킨</h3>
+                    <p>치킨 전문점</p>
+                    <p class="delivery-time">배달시간: 30-40분</p>
+                    <p class="min-order">최소주문: 15,000원</p>
+                </div>
+                <div class="restaurant-item" data-restaurant="신선한피자" onclick="selectRestaurant('신선한피자')">
+                    <div class="restaurant-icon">🍕</div>
+                    <h3>신선한피자</h3>
+                    <p>피자 전문점</p>
+                    <p class="delivery-time">배달시간: 25-35분</p>
+                    <p class="min-order">최소주문: 18,000원</p>
+                </div>
+                <div class="restaurant-item" data-restaurant="한식당" onclick="selectRestaurant('한식당')">
+                    <div class="restaurant-icon">🍚</div>
+                    <h3>한식당</h3>
+                    <p>한식 전문점</p>
+                    <p class="delivery-time">배달시간: 35-45분</p>
+                    <p class="min-order">최소주문: 12,000원</p>
+                </div>
+                <div class="restaurant-item" data-restaurant="중국집" onclick="selectRestaurant('중국집')">
+                    <div class="restaurant-icon">🥢</div>
+                    <h3>중국집</h3>
+                    <p>중식 전문점</p>
+                    <p class="delivery-time">배달시간: 30-40분</p>
+                    <p class="min-order">최소주문: 10,000원</p>
+                </div>
+                <div class="restaurant-item" data-restaurant="분식점" onclick="selectRestaurant('분식점')">
+                    <div class="restaurant-icon">🍜</div>
+                    <h3>분식점</h3>
+                    <p>분식 전문점</p>
+                    <p class="delivery-time">배달시간: 20-30분</p>
+                    <p class="min-order">최소주문: 8,000원</p>
+                </div>
+                <div class="restaurant-item" data-restaurant="카페" onclick="selectRestaurant('카페')">
+                    <div class="restaurant-icon">☕</div>
+                    <h3>카페</h3>
+                    <p>음료/디저트</p>
+                    <p class="delivery-time">배달시간: 15-25분</p>
+                    <p class="min-order">최소주문: 5,000원</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 메뉴 선택 섹션 -->
+        <div class="order-section" id="menuSection" style="display: none;">
+            <h2>🍽️ 메뉴 선택</h2>
+            <div class="menu-categories">
+                <button class="category-btn active" onclick="showCategory('main')">메인메뉴</button>
+                <button class="category-btn" onclick="showCategory('side')">사이드메뉴</button>
+                <button class="category-btn" onclick="showCategory('drink')">음료</button>
+                <button class="category-btn" onclick="showCategory('dessert')">디저트</button>
+            </div>
+            <div class="menu-grid" id="menuGrid">
+                <!-- 메뉴들이 JavaScript로 동적 생성됩니다 -->
+            </div>
+        </div>
+
+        <!-- 배달 옵션 섹션 -->
+        <div class="order-section" id="deliverySection" style="display: none;">
+            <h2>📍 배달 옵션</h2>
+            <div class="delivery-options">
+                <div class="address-section">
+                    <h3>🏠 배달 주소</h3>
+                    <div class="address-input">
+                        <input type="text" id="addressInput" placeholder="배달받을 주소를 입력하세요" value="서울시 강남구 테헤란로 123">
+                        <button class="address-btn" onclick="confirmAddress()">주소 확인</button>
+                    </div>
+                </div>
+                <div class="delivery-time-section">
+                    <h3>⏰ 배달 시간</h3>
+                    <div class="time-options">
+                        <button class="time-btn" onclick="selectDeliveryTime('asap')">빠른 배달</button>
+                        <button class="time-btn" onclick="selectDeliveryTime('30min')">30분 후</button>
+                        <button class="time-btn" onclick="selectDeliveryTime('1hour')">1시간 후</button>
+                        <button class="time-btn" onclick="selectDeliveryTime('custom')">직접 설정</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 배달비 선택 섹션 -->
+        <div class="order-section" id="deliveryFeeSection" style="display: none;">
+            <h2>💰 배달비 선택</h2>
+            <div class="delivery-fee-options">
+                <div class="fee-option" onclick="selectDeliveryFee('free')">
+                    <div class="fee-icon">🚚</div>
+                    <h3>무료배달</h3>
+                    <p>30,000원 이상 주문 시</p>
+                    <p class="fee-price">0원</p>
+                </div>
+                <div class="fee-option" onclick="selectDeliveryFee('single')">
+                    <div class="fee-icon">🛵</div>
+                    <h3>한집만배달</h3>
+                    <p>빠른 배달 서비스</p>
+                    <p class="fee-price">3,000원</p>
+                </div>
+                <div class="fee-option" onclick="selectDeliveryFee('standard')">
+                    <div class="fee-icon">🚛</div>
+                    <h3>일반배달</h3>
+                    <p>기본 배달 서비스</p>
+                    <p class="fee-price">2,000원</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 결제 방법 섹션 -->
+        <div class="order-section" id="paymentSection" style="display: none;">
+            <h2>💳 결제 방법</h2>
+            <div class="payment-options">
+                <div class="payment-option" onclick="selectPayment('card')">
+                    <div class="payment-icon">💳</div>
+                    <h3>신용카드</h3>
+                    <p>안전한 카드 결제</p>
+                </div>
+                <div class="payment-option" onclick="selectPayment('cash')">
+                    <div class="payment-icon">💵</div>
+                    <h3>현금결제</h3>
+                    <p>배달 시 현금 지불</p>
+                </div>
+                <div class="payment-option" onclick="selectPayment('mobile')">
+                    <div class="payment-icon">📱</div>
+                    <h3>모바일결제</h3>
+                    <p>간편한 모바일 결제</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 주문 완료 섹션 -->
+        <div class="order-section" id="completeSection" style="display: none;">
+            <h2>✅ 주문 완료</h2>
+            <div class="order-summary">
+                <h3>🍽️ 주문 내역</h3>
+                <div id="orderSummary"></div>
+                <h3>📍 배달 정보</h3>
+                <div id="deliverySummary"></div>
+                <h3>💰 결제 정보</h3>
+                <div id="paymentSummary"></div>
+                <h3>💵 총 금액: <span id="totalAmount">0원</span></h3>
+            </div>
+            <button class="complete-btn" onclick="completeOrder()">주문 완료</button>
+        </div>
+
+        <!-- 장바구니 섹션 -->
+        <div class="cart-section">
+            <h2>🛒 장바구니</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                <h3>총 금액: <span id="totalPrice">0원</span></h3>
+                <button class="order-btn" onclick="proceedToDelivery()" style="display: none;">배달 옵션 선택</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

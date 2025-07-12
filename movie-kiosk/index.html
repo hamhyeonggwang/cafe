@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화관 키오스크</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 영화관 키오스크</h1>
+            <p>영화를 선택하고 예매해주세요</p>
+            <button class="back-btn" onclick="goBack()">← 대시보드로 돌아가기</button>
+        </header>
+
+        <!-- 영화 선택 섹션 -->
+        <div class="order-section" id="movieSection">
+            <h2>🎭 영화 선택</h2>
+            <div class="movie-grid">
+                <div class="movie-item" data-movie="슈퍼히어로" data-price="12000" onclick="selectMovie('슈퍼히어로', 12000)">
+                    <div class="movie-poster">🦸‍♂️</div>
+                    <h3>슈퍼히어로</h3>
+                    <p>액션/어드벤처</p>
+                    <p class="price">12,000원</p>
+                </div>
+                <div class="movie-item" data-movie="로맨스스토리" data-price="11000" onclick="selectMovie('로맨스스토리', 11000)">
+                    <div class="movie-poster">💕</div>
+                    <h3>로맨스스토리</h3>
+                    <p>로맨스/드라마</p>
+                    <p class="price">11,000원</p>
+                </div>
+                <div class="movie-item" data-movie="코미디특급" data-price="10000" onclick="selectMovie('코미디특급', 10000)">
+                    <div class="movie-poster">😂</div>
+                    <h3>코미디특급</h3>
+                    <p>코미디</p>
+                    <p class="price">10,000원</p>
+                </div>
+                <div class="movie-item" data-movie="공포의밤" data-price="13000" onclick="selectMovie('공포의밤', 13000)">
+                    <div class="movie-poster">👻</div>
+                    <h3>공포의밤</h3>
+                    <p>공포/스릴러</p>
+                    <p class="price">13,000원</p>
+                </div>
+                <div class="movie-item" data-movie="애니메이션" data-price="9000" onclick="selectMovie('애니메이션', 9000)">
+                    <div class="movie-poster">🐱</div>
+                    <h3>애니메이션</h3>
+                    <p>애니메이션</p>
+                    <p class="price">9,000원</p>
+                </div>
+                <div class="movie-item" data-movie="다큐멘터리" data-price="8000" onclick="selectMovie('다큐멘터리', 8000)">
+                    <div class="movie-poster">📹</div>
+                    <h3>다큐멘터리</h3>
+                    <p>다큐멘터리</p>
+                    <p class="price">8,000원</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 날짜/시간 선택 섹션 -->
+        <div class="order-section" id="dateTimeSection" style="display: none;">
+            <h2>📅 날짜/시간 선택</h2>
+            <div class="date-time-grid">
+                <div class="date-section">
+                    <h3>📅 날짜 선택</h3>
+                    <div class="date-buttons">
+                        <button class="date-btn" onclick="selectDate('오늘')">오늘</button>
+                        <button class="date-btn" onclick="selectDate('내일')">내일</button>
+                        <button class="date-btn" onclick="selectDate('모레')">모레</button>
+                    </div>
+                </div>
+                <div class="time-section">
+                    <h3>🕐 시간 선택</h3>
+                    <div class="time-buttons">
+                        <button class="time-btn" onclick="selectTime('10:00')">10:00</button>
+                        <button class="time-btn" onclick="selectTime('12:30')">12:30</button>
+                        <button class="time-btn" onclick="selectTime('15:00')">15:00</button>
+                        <button class="time-btn" onclick="selectTime('17:30')">17:30</button>
+                        <button class="time-btn" onclick="selectTime('20:00')">20:00</button>
+                        <button class="time-btn" onclick="selectTime('22:30')">22:30</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 좌석 선택 섹션 -->
+        <div class="order-section" id="seatSection" style="display: none;">
+            <h2>💺 좌석 선택</h2>
+            <div class="seat-info">
+                <p>인원 수: <span id="personCount">1</span>명</p>
+                <div class="person-controls">
+                    <button class="person-btn" onclick="changePerson(-1)">-</button>
+                    <button class="person-btn" onclick="changePerson(1)">+</button>
+                </div>
+            </div>
+            <div class="seat-map">
+                <div class="screen">🎬 스크린</div>
+                <div class="seats-container">
+                    <!-- 좌석들이 JavaScript로 동적 생성됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 할인 적용 섹션 -->
+        <div class="order-section" id="discountSection" style="display: none;">
+            <h2>🎫 할인 적용</h2>
+            <div class="discount-options">
+                <button class="discount-btn" onclick="applyDiscount('없음')">할인 없음</button>
+                <button class="discount-btn" onclick="applyDiscount('학생')">학생 할인 (-20%)</button>
+                <button class="discount-btn" onclick="applyDiscount('어린이')">어린이 할인 (-30%)</button>
+                <button class="discount-btn" onclick="applyDiscount('경로우대')">경로우대 (-50%)</button>
+            </div>
+            <div class="price-display">
+                <h3>예매 금액: <span id="ticketPrice">0원</span></h3>
+            </div>
+        </div>
+
+        <!-- 간식 주문 섹션 -->
+        <div class="order-section" id="snackSection" style="display: none;">
+            <h2>🍿 간식 주문</h2>
+            <div class="snack-grid">
+                <div class="snack-item" data-snack="팝콘" data-price="5000" onclick="selectSnack('팝콘', 5000)">
+                    <div class="snack-icon">🍿</div>
+                    <h3>팝콘</h3>
+                    <p>5,000원</p>
+                </div>
+                <div class="snack-item" data-snack="버터구이오징어" data-price="8000" onclick="selectSnack('버터구이오징어', 8000)">
+                    <div class="snack-icon">🦑</div>
+                    <h3>버터구이오징어</h3>
+                    <p>8,000원</p>
+                </div>
+                <div class="snack-item" data-snack="나초" data-price="4000" onclick="selectSnack('나초', 4000)">
+                    <div class="snack-icon">🌽</div>
+                    <h3>나초</h3>
+                    <p>4,000원</p>
+                </div>
+                <div class="snack-item" data-snack="콜라" data-price="3000" onclick="selectSnack('콜라', 3000)">
+                    <div class="snack-icon">🥤</div>
+                    <h3>콜라</h3>
+                    <p>3,000원</p>
+                </div>
+                <div class="snack-item" data-snack="사이다" data-price="3000" onclick="selectSnack('사이다', 3000)">
+                    <div class="snack-icon">🥤</div>
+                    <h3>사이다</h3>
+                    <p>3,000원</p>
+                </div>
+                <div class="snack-item" data-snack="아이스크림" data-price="2500" onclick="selectSnack('아이스크림', 2500)">
+                    <div class="snack-icon">🍦</div>
+                    <h3>아이스크림</h3>
+                    <p>2,500원</p>
+                </div>
+            </div>
+            <div class="snack-quantity">
+                <h3>수량: <span id="snackQuantity">1</span></h3>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="changeSnackQuantity(-1)">-</button>
+                    <button class="quantity-btn" onclick="changeSnackQuantity(1)">+</button>
+                </div>
+            </div>
+            <button class="add-snack-btn" onclick="addSnackToCart()">🍿 간식 추가</button>
+        </div>
+
+        <!-- 주문 완료 섹션 -->
+        <div class="order-section" id="completeSection" style="display: none;">
+            <h2>✅ 주문 완료</h2>
+            <div class="order-summary">
+                <h3>🎬 영화 예매 내역</h3>
+                <div id="ticketSummary"></div>
+                <h3>🍿 간식 주문 내역</h3>
+                <div id="snackSummary"></div>
+                <h3>💰 총 금액: <span id="totalAmount">0원</span></h3>
+            </div>
+            <button class="complete-btn" onclick="completeOrder()">예매 완료</button>
+        </div>
+
+        <!-- 장바구니 섹션 -->
+        <div class="cart-section">
+            <h2>🛒 주문 내역</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                <h3>총 금액: <span id="totalPrice">0원</span></h3>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
