@@ -65,8 +65,8 @@ const menuData = {
         ],
         side: [
             { name: '치킨무', price: 1000, icon: '🥕', description: '신선한 치킨무' },
-            { name: '콜라', price: 2000, icon: '🥤', description: '시원한 콜라' },
-            { name: '사이다', price: 2000, icon: '🥤', description: '깔끔한 사이다' }
+            { name: '치즈볼', price: 3000, icon: '🧀', description: '바삭한 치즈볼' },
+            { name: '감자튀김', price: 2500, icon: '🍟', description: '바삭한 감자튀김' }
         ],
         drink: [
             { name: '콜라', price: 2000, icon: '🥤', description: '시원한 콜라' },
@@ -87,8 +87,8 @@ const menuData = {
         ],
         side: [
             { name: '치킨무', price: 1500, icon: '🥕', description: '신선한 치킨무' },
-            { name: '콜라', price: 2500, icon: '🥤', description: '시원한 콜라' },
-            { name: '사이다', price: 2500, icon: '🥤', description: '깔끔한 사이다' }
+            { name: '치즈볼', price: 3500, icon: '🧀', description: '바삭한 치즈볼' },
+            { name: '감자튀김', price: 3000, icon: '🍟', description: '바삭한 감자튀김' }
         ],
         drink: [
             { name: '콜라', price: 2500, icon: '🥤', description: '시원한 콜라' },
@@ -109,7 +109,8 @@ const menuData = {
         ],
         side: [
             { name: '치킨윙', price: 8000, icon: '🍗', description: '바삭한 치킨윙' },
-            { name: '콜라', price: 2000, icon: '🥤', description: '시원한 콜라' }
+            { name: '치즈볼', price: 4000, icon: '🧀', description: '바삭한 치즈볼' },
+            { name: '감자튀김', price: 3500, icon: '🍟', description: '바삭한 감자튀김' }
         ],
         drink: [
             { name: '콜라', price: 2000, icon: '🥤', description: '시원한 콜라' },
@@ -128,7 +129,8 @@ const menuData = {
         ],
         side: [
             { name: '치킨윙', price: 12000, icon: '🍗', description: '바삭한 치킨윙' },
-            { name: '콜라', price: 3000, icon: '🥤', description: '시원한 콜라' }
+            { name: '치즈볼', price: 6000, icon: '🧀', description: '바삭한 치즈볼' },
+            { name: '감자튀김', price: 5000, icon: '🍟', description: '바삭한 감자튀김' }
         ],
         drink: [
             { name: '콜라', price: 3000, icon: '🥤', description: '시원한 콜라' },
@@ -147,7 +149,8 @@ const menuData = {
         ],
         side: [
             { name: '김치', price: 2000, icon: '🥬', description: '신선한 김치' },
-            { name: '된장국', price: 3000, icon: '🍲', description: '구수한 된장국' }
+            { name: '된장국', price: 3000, icon: '🍲', description: '구수한 된장국' },
+            { name: '떡꼬치', price: 2500, icon: '🍡', description: '매콤달콤 떡꼬치' }
         ],
         drink: [
             { name: '막걸리', price: 4000, icon: '🍶', description: '구수한 막걸리' },
@@ -166,7 +169,8 @@ const menuData = {
         ],
         side: [
             { name: '김치', price: 3000, icon: '🥬', description: '신선한 김치' },
-            { name: '된장국', price: 4000, icon: '🍲', description: '구수한 된장국' }
+            { name: '된장국', price: 4000, icon: '🍲', description: '구수한 된장국' },
+            { name: '떡꼬치', price: 3500, icon: '🍡', description: '매콤달콤 떡꼬치' }
         ],
         drink: [
             { name: '막걸리', price: 5000, icon: '🍶', description: '구수한 막걸리' },
@@ -282,7 +286,7 @@ const menuData = {
         ],
         side: [
             { name: '샌드위치', price: 12000, icon: '🥪', description: '신선한 샌드위치' },
-            { name: '토스트', price: 8000, icon: '🍞', description: '바삭한 토스트' }
+            { name: '토스트', price: 8000, icon: '��', description: '바삭한 토스트' }
         ],
         drink: [
             { name: '아메리카노', price: 6000, icon: '☕', description: '깔끔한 아메리카노' },
@@ -304,8 +308,8 @@ const menuData = {
         ],
         side: [
             { name: '치킨무', price: 2000, icon: '🥕', description: '신선한 치킨무' },
-            { name: '콜라', price: 3000, icon: '🥤', description: '시원한 콜라' },
-            { name: '사이다', price: 3000, icon: '🥤', description: '깔끔한 사이다' }
+            { name: '치즈볼', price: 4000, icon: '🧀', description: '바삭한 치즈볼' },
+            { name: '감자튀김', price: 3500, icon: '🍟', description: '바삭한 감자튀김' }
         ],
         drink: [
             { name: '콜라', price: 3000, icon: '🥤', description: '시원한 콜라' },
@@ -326,8 +330,8 @@ const menuData = {
         ],
         side: [
             { name: '치킨무', price: 2500, icon: '🥕', description: '신선한 치킨무' },
-            { name: '콜라', price: 3500, icon: '🥤', description: '시원한 콜라' },
-            { name: '사이다', price: 3500, icon: '🥤', description: '깔끔한 사이다' }
+            { name: '치즈볼', price: 4500, icon: '🧀', description: '바삭한 치즈볼' },
+            { name: '감자튀김', price: 4000, icon: '🍟', description: '바삭한 감자튀김' }
         ],
         drink: [
             { name: '콜라', price: 3500, icon: '🥤', description: '시원한 콜라' },
@@ -348,7 +352,8 @@ const menuData = {
         ],
         side: [
             { name: '치킨윙', price: 10000, icon: '🍗', description: '바삭한 치킨윙' },
-            { name: '콜라', price: 2500, icon: '🥤', description: '시원한 콜라' }
+            { name: '치즈볼', price: 5000, icon: '🧀', description: '바삭한 치즈볼' },
+            { name: '감자튀김', price: 4000, icon: '🍟', description: '바삭한 감자튀김' }
         ],
         drink: [
             { name: '콜라', price: 2500, icon: '🥤', description: '시원한 콜라' },
@@ -367,7 +372,8 @@ const menuData = {
         ],
         side: [
             { name: '치킨윙', price: 6000, icon: '🍗', description: '바삭한 치킨윙' },
-            { name: '콜라', price: 1500, icon: '🥤', description: '시원한 콜라' }
+            { name: '치즈볼', price: 3000, icon: '🧀', description: '바삭한 치즈볼' },
+            { name: '감자튀김', price: 2500, icon: '🍟', description: '바삭한 감자튀김' }
         ],
         drink: [
             { name: '콜라', price: 1500, icon: '🥤', description: '시원한 콜라' },
@@ -386,7 +392,8 @@ const menuData = {
         ],
         side: [
             { name: '김치', price: 3000, icon: '🥬', description: '신선한 김치' },
-            { name: '된장국', price: 4000, icon: '🍲', description: '구수한 된장국' }
+            { name: '된장국', price: 4000, icon: '🍲', description: '구수한 된장국' },
+            { name: '떡꼬치', price: 3500, icon: '🍡', description: '매콤달콤 떡꼬치' }
         ],
         drink: [
             { name: '막걸리', price: 5000, icon: '🍶', description: '구수한 막걸리' },
@@ -854,6 +861,13 @@ function updateCartDisplay() {
     } else {
         orderBtn.style.display = 'none';
     }
+    // 결제 버튼 표시/숨김
+    const payBtn = document.querySelector('.pay-btn');
+    if (cart.length > 0 && selectedDeliveryTime && selectedDeliveryFee) {
+        payBtn.style.display = 'inline-block';
+    } else {
+        payBtn.style.display = 'none';
+    }
 }
 
 // 장바구니에서 삭제
@@ -1216,3 +1230,9 @@ document.addEventListener('touchstart', function() {}, {passive: true});
 
 // 로딩 완료 메시지
 console.log('배달주문 키오스크 JavaScript 로드 완료'); 
+
+function goToPayment() {
+    // 결제 방법 섹션 표시
+    paymentSection.style.display = 'block';
+    speak('결제 방법을 선택해주세요.');
+}

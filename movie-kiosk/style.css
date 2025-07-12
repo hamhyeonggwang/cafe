@@ -749,4 +749,79 @@ button:focus, input:focus {
 
 .order-section {
     animation: fadeIn 0.5s ease-out;
+}
+
+/* Footer 스타일 */
+.footer {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 30px 0;
+    margin-top: 50px;
+    border-top: 3px solid #3498db;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.developer-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    color: #3498db;
+}
+
+.developer-info p {
+    font-size: 1.1rem;
+    color: #bdc3c7;
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+}
+
+.instagram-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #e1306c, #c13584);
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.instagram-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4);
+}
+
+.instagram-icon {
+    font-size: 1.3rem;
+}
+
+/* 반응형 Footer */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .developer-info h3 {
+        font-size: 1.6rem;
+    }
+    
+    .instagram-link {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
 } 
