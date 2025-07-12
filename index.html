@@ -1,1 +1,133 @@
- 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키오스크 훈련 대시보드</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 키오스크 훈련 대시보드</h1>
+            <p>발달장애인을 위한 다양한 키오스크 훈련 프로그램</p>
+        </header>
+
+        <div class="dashboard-section">
+            <h2>훈련 프로그램 선택</h2>
+            <div class="training-grid">
+                <div class="training-card" onclick="goToTraining('cafe')">
+                    <div class="card-icon">☕</div>
+                    <h3>카페 키오스크</h3>
+                    <p>음료 주문 훈련</p>
+                    <ul>
+                        <li>매장/포장 선택</li>
+                        <li>아이스/핫 선택</li>
+                        <li>사이즈 선택</li>
+                        <li>추가 옵션 선택</li>
+                    </ul>
+                    <div class="difficulty">난이도: ⭐⭐⭐</div>
+                </div>
+
+                <div class="training-card" onclick="goToTraining('restaurant')">
+                    <div class="card-icon">🍜</div>
+                    <h3>식당 키오스크</h3>
+                    <p>음식 주문 훈련</p>
+                    <ul>
+                        <li>매장/포장 선택</li>
+                        <li>음식 종류 선택</li>
+                        <li>양념/소스 선택</li>
+                        <li>사이드 메뉴 선택</li>
+                    </ul>
+                    <div class="difficulty">난이도: ⭐⭐⭐⭐</div>
+                </div>
+
+                <div class="training-card coming-soon">
+                    <div class="card-icon">🛒</div>
+                    <h3>편의점 키오스크</h3>
+                    <p>상품 구매 훈련</p>
+                    <ul>
+                        <li>상품 카테고리 선택</li>
+                        <li>상품 검색</li>
+                        <li>수량 선택</li>
+                        <li>결제 방법 선택</li>
+                    </ul>
+                    <div class="difficulty">난이도: ⭐⭐⭐⭐⭐</div>
+                    <div class="coming-soon-badge">준비 중</div>
+                </div>
+
+                <div class="training-card coming-soon">
+                    <div class="card-icon">🎬</div>
+                    <h3>영화관 키오스크</h3>
+                    <p>영화 예매 훈련</p>
+                    <ul>
+                        <li>영화 선택</li>
+                        <li>날짜/시간 선택</li>
+                        <li>좌석 선택</li>
+                        <li>인원 선택</li>
+                    </ul>
+                    <div class="difficulty">난이도: ⭐⭐⭐⭐⭐</div>
+                    <div class="coming-soon-badge">준비 중</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>훈련 가이드</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🎯 훈련 목표</h3>
+                    <ul>
+                        <li>독립적인 주문 능력 향상</li>
+                        <li>선택과 결정 능력 개발</li>
+                        <li>금전 관리 능력 향상</li>
+                        <li>사회적 기술 습득</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>💡 사용 방법</h3>
+                    <ol>
+                        <li>원하는 훈련 프로그램 선택</li>
+                        <li>화면의 안내에 따라 주문 진행</li>
+                        <li>음성 피드백을 잘 듣고 따라하기</li>
+                        <li>실수를 두려워하지 말고 반복 연습</li>
+                    </ol>
+                </div>
+
+                <div class="info-card">
+                    <h3>🔧 접근성 기능</h3>
+                    <ul>
+                        <li>큰 버튼과 명확한 아이콘</li>
+                        <li>음성 피드백 제공</li>
+                        <li>키보드 네비게이션 지원</li>
+                        <li>터치 친화적 인터페이스</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>📊 진행 상황</h3>
+                    <div class="progress-info">
+                        <div class="progress-item">
+                            <span>카페 훈련</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                            <span>완료</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>식당 훈련</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <span>준비 중</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html> 
