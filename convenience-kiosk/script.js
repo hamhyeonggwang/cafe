@@ -12,9 +12,7 @@ const products = {
         { name: '초코파이', price: 1200, image: '🍫', category: '과자' },
         { name: '오레오', price: 1500, image: '🍪', category: '과자' },
         { name: '포카칩', price: 1300, image: '🥔', category: '과자' },
-        { name: '새우깡', price: 1200, image: '🦐', category: '과자' },
-        { name: '맥주', price: 1000, image: '🍺', category: '과자' },
-        { name: '감자칩', price: 1400, image: '🥔', category: '과자' }
+        { name: '새우깡', price: 1200, image: '🦐', category: '과자' }
     ],
     라면: [
         { name: '신라면', price: 1200, image: '🍜', category: '라면' },
