@@ -1172,22 +1172,15 @@ function cancelPayment() {
     paymentSection.style.display = 'block';
 }
 
-// 주문 완료 - 결제 화면으로 이동
+// 주문 완료 - 최종 완료 메시지
 function completeOrder() {
-    if (cart.length === 0) {
-        alert('장바구니가 비어있습니다.');
-        speak('장바구니가 비어있습니다.');
-        return;
-    }
+    speak('주문이 완료되었습니다. 감사합니다!');
     
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    finalPaymentAmount.textContent = total.toLocaleString() + '원';
+    // 주문 완료 메시지 표시
+    alert('주문이 완료되었습니다. 감사합니다!');
     
-    // 결제 화면 표시
-    finalPaymentSection.style.display = 'block';
-    speak('결제 방법을 선택해주세요.');
-    
-    console.log('결제 화면 표시');
+    // 새로운 주문 시작
+    resetOrder();
 }
 
 // 결제 방법 선택
