@@ -1276,6 +1276,10 @@ document.addEventListener('touchstart', function() {}, {passive: true});
 console.log('배달주문 키오스크 JavaScript 로드 완료'); 
 
 function goToPayment() {
+    console.log('goToPayment 호출됨');
+    console.log('장바구니 상태:', cart);
+    console.log('selectedDeliveryFee:', selectedDeliveryFee);
+    
     if (cart.length === 0) {
         alert('장바구니가 비어있습니다.');
         speak('장바구니가 비어있습니다.');
@@ -1289,6 +1293,14 @@ function goToPayment() {
     }
     
     // 결제 방법 섹션 표시
+    console.log('결제 방법 섹션 표시 전:', paymentSection.style.display);
     paymentSection.style.display = 'block';
+    console.log('결제 방법 섹션 표시 후:', paymentSection.style.display);
+    
+    // 다른 섹션들 숨기기
+    deliverySection.style.display = 'none';
+    deliveryFeeSection.style.display = 'none';
+    
     speak('결제 방법을 선택해주세요.');
+    console.log('결제 방법 선택 안내 완료');
 }
