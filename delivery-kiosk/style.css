@@ -928,8 +928,38 @@ button:focus, input:focus {
     }
 }
 
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .order-section {
     animation: fadeIn 0.5s ease-out;
+}
+
+.section-slide-down {
+    animation: slideDown 0.6s ease-out;
+}
+
+.section-slide-up {
+    animation: slideUp 0.6s ease-out;
 }
 
 /* Footer 스타일 */

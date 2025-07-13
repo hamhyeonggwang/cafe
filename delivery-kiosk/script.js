@@ -680,6 +680,12 @@ function selectCategory(category) {
     // 음식점 섹션 표시
     displayRestaurants(category);
     restaurantSection.style.display = 'block';
+    restaurantSection.classList.add('section-slide-down');
+    
+    // 자연스러운 스크롤 이동
+    setTimeout(() => {
+        restaurantSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
     
     speak(`${category} 카테고리가 선택되었습니다. 음식점을 선택해주세요.`);
 }
@@ -720,7 +726,13 @@ function selectRestaurant(restaurantName) {
     
     // 메뉴 섹션 표시
     menuSection.style.display = 'block';
+    menuSection.classList.add('section-slide-down');
     showCategory('main');
+    
+    // 자연스러운 스크롤 이동
+    setTimeout(() => {
+        menuSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
     
     speak(`${restaurantName}이 선택되었습니다. 메뉴를 선택해주세요.`);
 }
@@ -896,6 +908,13 @@ function proceedToDelivery() {
     }
     
     deliverySection.style.display = 'block';
+    deliverySection.classList.add('section-slide-up');
+    
+    // 자연스러운 스크롤 이동
+    setTimeout(() => {
+        deliverySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+    
     speak('배달 옵션을 선택해주세요.');
 }
 
@@ -1040,11 +1059,17 @@ function goToPayment() {
     // 결제 방법 섹션 표시
     console.log('결제 방법 섹션 표시 전:', paymentSection.style.display);
     paymentSection.style.display = 'block';
+    paymentSection.classList.add('section-slide-up');
     console.log('결제 방법 섹션 표시 후:', paymentSection.style.display);
     
     // 다른 섹션들 숨기기
     deliverySection.style.display = 'none';
     deliveryFeeSection.style.display = 'none';
+    
+    // 자연스러운 스크롤 이동
+    setTimeout(() => {
+        paymentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
     
     speak('결제 방법을 선택해주세요.');
     console.log('결제 방법 선택 안내 완료');

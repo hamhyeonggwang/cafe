@@ -78,6 +78,19 @@
             </div>
         </div>
 
+
+
+        <!-- 장바구니 섹션 -->
+        <div class="cart-section">
+            <h2>🛒 장바구니</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                <h3>총 금액: <span id="totalPrice">0원</span></h3>
+                <button class="order-btn" onclick="proceedToDelivery()" style="display: none;">배달 옵션 선택</button>
+                <button class="pay-btn" onclick="goToPayment()" style="display: none;">결제하기</button>
+            </div>
+        </div>
+
         <!-- 배달 옵션 섹션 -->
         <div class="order-section" id="deliverySection" style="display: none;">
             <h2>📍 배달 옵션</h2>
@@ -115,17 +128,6 @@
                     <p>빠른 배달 서비스</p>
                     <p class="fee-price">3,000원</p>
                 </div>
-            </div>
-        </div>
-
-        <!-- 장바구니 섹션 -->
-        <div class="cart-section">
-            <h2>🛒 장바구니</h2>
-            <div id="cartItems"></div>
-            <div class="cart-total">
-                <h3>총 금액: <span id="totalPrice">0원</span></h3>
-                <button class="order-btn" onclick="proceedToDelivery()" style="display: none;">배달 옵션 선택</button>
-                <button class="pay-btn" onclick="goToPayment()" style="display: none;">결제하기</button>
             </div>
         </div>
 
