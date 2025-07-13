@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>은행 ATM 키오스크</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>더모아은행 ATM 키오스크</h1>
+            <p>실제 은행 ATM과 유사한 환경에서 연습해보세요</p>
+            <button class="back-btn" onclick="goBack()">← 대시보드로 돌아가기</button>
+        </header>
+
+        <!-- 더모아은행 ATM 메인화면 리디자인 -->
+        <div class="atm-main-section" id="atmMainSection">
+            <div class="atm-row">
+                <!-- 좌측 버튼 -->
+                <div class="atm-side atm-side-left">
+                    <button class="atm-btn" onclick="selectTransaction('withdraw')">출금</button>
+                    <button class="atm-btn" onclick="selectTransaction('transfer')">계좌송금</button>
+                    <button class="atm-btn" onclick="selectTransaction('inquiry')">조회거래</button>
+                    <button class="atm-btn" onclick="selectTransaction('creditcard')">신용카드</button>
+                    <button class="atm-btn" onclick="selectTransaction('tax')">지로/공과금<br>지방세 등 납부</button>
+                    <button class="atm-btn atm-btn-green" onclick="selectTransaction('international')">INTERNATIONAL<br>SERVICE</button>
+                </div>
+                <!-- 중앙 안내/권종/접근성 -->
+                <div class="atm-center">
+                    <div class="atm-center-top">
+                        <div class="atm-guide-box">
+                            <div class="atm-guide-title">더모아 소셜 서포터즈</div>
+                            <div class="atm-guide-desc">ATM 100% 활용하기!</div>
+                            <div class="atm-guide-device">기기번호 : 1234-5678</div>
+                        </div>
+                        <div class="atm-denomination-box">
+                            <div class="atm-denomination-title">거래 / 권종</div>
+                            <table class="atm-denomination-table">
+                                <tr><th></th><th>1만원</th><th>5만원</th><th>수표</th></tr>
+                                <tr><td>입금</td><td>○</td><td>○</td><td>○</td></tr>
+                                <tr><td>출금</td><td>○</td><td>○</td><td>○</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="atm-center-bottom">
+                        <button class="atm-btn atm-btn-blue" onclick="zoomScreen()">화면 확대<br>(저시력고객용)</button>
+                    </div>
+                </div>
+                <!-- 우측 버튼 -->
+                <div class="atm-side atm-side-right">
+                    <button class="atm-btn" onclick="selectTransaction('deposit')">입금</button>
+                    <button class="atm-btn" onclick="selectTransaction('passbook')">통장정리</button>
+                    <button class="atm-btn" onclick="selectTransaction('mobile')">휴대폰/교통카드<br>무통장/무카드거래</button>
+                    <button class="atm-btn" onclick="selectTransaction('overseas')">해외송금<br>(외환거래)</button>
+                    <button class="atm-btn" onclick="selectTransaction('investment')">투자증권</button>
+                    <button class="atm-btn" onclick="selectTransaction('hicharge')">hi플러스<br>충전/전자화폐</button>
+                    <button class="atm-btn" onclick="selectTransaction('other')">다른업무</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 삽입 섹션 -->
+        <div class="order-section" id="cardSection" style="display: none;">
+            <h2>💳 카드 삽입</h2>
+            <div class="card-insert-area">
+                <div class="card-slot">
+                    <div class="card-icon">💳</div>
+                    <p>카드를 슬롯에 삽입해주세요</p>
+                    <button class="insert-card-btn" onclick="insertCard()">카드 삽입</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PIN 입력 섹션 -->
+        <div class="order-section" id="pinSection" style="display: none;">
+            <h2>🔐 비밀번호 입력</h2>
+            <div class="pin-input-area">
+                <div class="pin-display">
+                    <div class="pin-dots">
+                        <span class="pin-dot" id="pin1">●</span>
+                        <span class="pin-dot" id="pin2">●</span>
+                        <span class="pin-dot" id="pin3">●</span>
+                        <span class="pin-dot" id="pin4">●</span>
+                    </div>
+                    <p class="pin-message">비밀번호를 입력해주세요</p>
+                    <p class="pin-warning">※ 비밀번호는 <b>쉿! 비밀이에요!</b></p>
+                </div>
+                <div class="number-pad">
+                    <div class="number-row">
+                        <button class="num-btn" onclick="inputNumber('1')">1</button>
+                        <button class="num-btn" onclick="inputNumber('2')">2</button>
+                        <button class="num-btn" onclick="inputNumber('3')">3</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="inputNumber('4')">4</button>
+                        <button class="num-btn" onclick="inputNumber('5')">5</button>
+                        <button class="num-btn" onclick="inputNumber('6')">6</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="inputNumber('7')">7</button>
+                        <button class="num-btn" onclick="inputNumber('8')">8</button>
+                        <button class="num-btn" onclick="inputNumber('9')">9</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="inputNumber('0')">0</button>
+                        <button class="clear-btn" onclick="clearPin()">지우기</button>
+                        <button class="enter-btn" onclick="enterPin()">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 메인 메뉴 섹션 -->
+        <div class="order-section" id="mainMenuSection" style="display: none;">
+            <h2>📋 서비스 선택</h2>
+            <div class="service-grid">
+                <div class="service-item" onclick="selectService('balance')">
+                    <div class="service-icon">💰</div>
+                    <h3>잔액 조회</h3>
+                    <p>계좌 잔액을 확인합니다</p>
+                </div>
+                <div class="service-item" onclick="selectService('withdraw')">
+                    <div class="service-icon">💸</div>
+                    <h3>현금 출금</h3>
+                    <p>현금을 출금합니다</p>
+                </div>
+                <div class="service-item" onclick="selectService('deposit')">
+                    <div class="service-icon">💳</div>
+                    <h3>현금 입금</h3>
+                    <p>현금을 입금합니다</p>
+                </div>
+                <div class="service-item" onclick="selectService('transfer')">
+                    <div class="service-icon">🔄</div>
+                    <h3>계좌 이체</h3>
+                    <p>다른 계좌로 이체합니다</p>
+                </div>
+                <div class="service-item" onclick="selectService('statement')">
+                    <div class="service-icon">📄</div>
+                    <h3>거래 내역</h3>
+                    <p>거래 내역을 확인합니다</p>
+                </div>
+                <div class="service-item" onclick="selectService('changePin')">
+                    <div class="service-icon">🔐</div>
+                    <h3>PIN 변경</h3>
+                    <p>PIN 번호를 변경합니다</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 잔액 조회 섹션 -->
+        <div class="order-section" id="balanceSection" style="display: none;">
+            <h2>💰 잔액 조회</h2>
+            <div class="balance-display">
+                <div class="account-info">
+                    <h3>계좌 정보</h3>
+                    <p>계좌번호: <span id="accountNumber">123-456-789</span></p>
+                    <p>예금주: <span id="accountHolder">홍길동</span></p>
+                </div>
+                <div class="balance-info">
+                    <h3>현재 잔액</h3>
+                    <div class="balance-amount">
+                        <span id="currentBalance">1,250,000</span>원
+                    </div>
+                </div>
+                <button class="continue-btn" onclick="returnToMain()">계속</button>
+            </div>
+        </div>
+
+        <!-- 출금 섹션 -->
+        <div class="order-section" id="withdrawSection" style="display: none;">
+            <h2>💸 현금 출금</h2>
+            <div class="withdraw-options">
+                <div class="amount-options">
+                    <button class="amount-btn" onclick="selectAmount(10000)">10,000원</button>
+                    <button class="amount-btn" onclick="selectAmount(30000)">30,000원</button>
+                    <button class="amount-btn" onclick="selectAmount(50000)">50,000원</button>
+                    <button class="amount-btn" onclick="selectAmount(100000)">100,000원</button>
+                    <button class="amount-btn" onclick="selectAmount(200000)">200,000원</button>
+                    <button class="amount-btn" onclick="selectAmount(500000)">500,000원</button>
+                </div>
+                <div class="custom-amount">
+                    <h3>직접 입력</h3>
+                    <input type="number" id="customAmount" placeholder="출금할 금액을 입력하세요" min="1000" step="1000">
+                    <button class="custom-amount-btn" onclick="selectCustomAmount()">확인</button>
+                </div>
+                <div class="selected-amount-display">
+                    <h3>선택된 금액: <span id="selectedAmount">0</span>원</h3>
+                    <button class="withdraw-btn" onclick="processWithdraw()">출금하기</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 입금 섹션 -->
+        <div class="order-section" id="depositSection" style="display: none;">
+            <h2>💳 현금 입금</h2>
+            <div class="deposit-options">
+                <div class="deposit-slot">
+                    <div class="slot-icon">💰</div>
+                    <p>입금할 현금을 슬롯에 넣어주세요</p>
+                    <button class="deposit-btn" onclick="processDeposit()">입금하기</button>
+                </div>
+                <div class="deposit-amount">
+                    <h3>입금 금액: <span id="depositAmount">0</span>원</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- 이체 섹션 -->
+        <div class="order-section" id="transferSection" style="display: none;">
+            <h2>🔄 계좌 이체</h2>
+            <div class="transfer-form">
+                <div class="form-group">
+                    <label>받는 분 계좌번호</label>
+                    <input type="text" id="transferAccount" placeholder="계좌번호를 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label>이체 금액</label>
+                    <input type="number" id="transferAmount" placeholder="이체할 금액을 입력하세요" min="1000">
+                </div>
+                <div class="form-group">
+                    <label>받는 분 이름</label>
+                    <input type="text" id="transferName" placeholder="받는 분 이름을 입력하세요">
+                </div>
+                <button class="transfer-btn" onclick="processTransfer()">이체하기</button>
+            </div>
+        </div>
+
+        <!-- 거래 내역 섹션 -->
+        <div class="order-section" id="statementSection" style="display: none;">
+            <h2>📄 거래 내역</h2>
+            <div class="statement-list">
+                <div class="statement-item">
+                    <div class="transaction-info">
+                        <span class="date">2024.01.15</span>
+                        <span class="type">출금</span>
+                        <span class="amount">-50,000원</span>
+                    </div>
+                    <div class="balance">잔액: 1,200,000원</div>
+                </div>
+                <div class="statement-item">
+                    <div class="transaction-info">
+                        <span class="date">2024.01.14</span>
+                        <span class="type">입금</span>
+                        <span class="amount">+300,000원</span>
+                    </div>
+                    <div class="balance">잔액: 1,250,000원</div>
+                </div>
+                <div class="statement-item">
+                    <div class="transaction-info">
+                        <span class="date">2024.01.13</span>
+                        <span class="type">이체</span>
+                        <span class="amount">-100,000원</span>
+                    </div>
+                    <div class="balance">잔액: 950,000원</div>
+                </div>
+            </div>
+            <button class="continue-btn" onclick="returnToMain()">계속</button>
+        </div>
+
+        <!-- PIN 변경 섹션 -->
+        <div class="order-section" id="changePinSection" style="display: none;">
+            <h2>🔐 PIN 변경</h2>
+            <div class="pin-change-area">
+                <div class="pin-step">
+                    <h3>현재 PIN 입력</h3>
+                    <div class="pin-display">
+                        <div class="pin-dots">
+                            <span class="pin-dot" id="currentPin1">●</span>
+                            <span class="pin-dot" id="currentPin2">●</span>
+                            <span class="pin-dot" id="currentPin3">●</span>
+                            <span class="pin-dot" id="currentPin4">●</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pin-step" id="newPinStep" style="display: none;">
+                    <h3>새 PIN 입력</h3>
+                    <div class="pin-display">
+                        <div class="pin-dots">
+                            <span class="pin-dot" id="newPin1">●</span>
+                            <span class="pin-dot" id="newPin2">●</span>
+                            <span class="pin-dot" id="newPin3">●</span>
+                            <span class="pin-dot" id="newPin4">●</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="number-pad">
+                    <div class="number-row">
+                        <button class="num-btn" onclick="inputPinNumber('1')">1</button>
+                        <button class="num-btn" onclick="inputPinNumber('2')">2</button>
+                        <button class="num-btn" onclick="inputPinNumber('3')">3</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="inputPinNumber('4')">4</button>
+                        <button class="num-btn" onclick="inputPinNumber('5')">5</button>
+                        <button class="num-btn" onclick="inputPinNumber('6')">6</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="inputPinNumber('7')">7</button>
+                        <button class="num-btn" onclick="inputPinNumber('8')">8</button>
+                        <button class="num-btn" onclick="inputPinNumber('9')">9</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="inputPinNumber('0')">0</button>
+                        <button class="clear-btn" onclick="clearPinInput()">지우기</button>
+                        <button class="enter-btn" onclick="confirmPinChange()">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 거래 완료 섹션 -->
+        <div class="order-section" id="transactionCompleteSection" style="display: none;">
+            <h2>✅ 거래 완료</h2>
+            <div class="transaction-summary">
+                <div class="success-icon">✅</div>
+                <h3 id="transactionType">거래가 완료되었습니다</h3>
+                <div id="transactionDetails"></div>
+                <button class="continue-btn" onclick="returnToMain()">계속</button>
+            </div>
+        </div>
+
+        <!-- 카드 반환 섹션 -->
+        <div class="order-section" id="cardReturnSection" style="display: none;">
+            <h2>💳 카드 반환</h2>
+            <div class="card-return-area">
+                <div class="card-icon">💳</div>
+                <p>카드를 가져가세요</p>
+                <button class="take-card-btn" onclick="takeCard()">카드 가져가기</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="developer-info">
+                <h3>R.OTi LAB</h3>
+                <p>by 함형광</p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/starlight_daddy/" target="_blank" class="instagram-link">
+                    <span>@starlight_daddy</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

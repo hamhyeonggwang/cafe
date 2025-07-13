@@ -28,6 +28,9 @@ function goToTraining(type) {
     } else if (type === 'delivery') {
         speak('배달주문 키오스크 훈련을 시작합니다.');
         window.location.href = 'delivery-kiosk/index.html';
+    } else if (type === 'atm') {
+        speak('은행 ATM 키오스크 훈련을 시작합니다.');
+        window.location.href = 'atm-kiosk/index.html';
     }
 }
 
@@ -54,6 +57,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 goToTraining('cafe');
             } else if (cardTitle.includes('식당')) {
                 goToTraining('restaurant');
+            } else if (cardTitle.includes('편의점')) {
+                goToTraining('convenience');
+            } else if (cardTitle.includes('영화관')) {
+                goToTraining('movie');
+            } else if (cardTitle.includes('배달주문')) {
+                goToTraining('delivery');
+            } else if (cardTitle.includes('은행 ATM')) {
+                goToTraining('atm');
             }
         });
         
