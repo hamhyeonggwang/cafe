@@ -480,3 +480,80 @@ document.addEventListener('DOMContentLoaded', function() {
 function zoomScreen() {
     document.body.style.zoom = (document.body.style.zoom === '1.3') ? '1' : '1.3';
 } 
+
+// 출금 - 오른쪽 키패드 입력
+function appendCustomAmount(num) {
+    const input = document.getElementById('customAmount');
+    input.value = (input.value || '') + num;
+    input.focus();
+}
+function clearCustomAmount() {
+    const input = document.getElementById('customAmount');
+    input.value = '';
+    input.focus();
+}
+// 이체 - 오른쪽 키패드 입력 (계좌번호/금액 중 포커스된 곳에 입력)
+function appendTransferInput(num) {
+    const accountInput = document.getElementById('transferAccount');
+    const amountInput = document.getElementById('transferAmount');
+    if (document.activeElement === accountInput) {
+        accountInput.value = (accountInput.value || '') + num;
+    } else if (document.activeElement === amountInput) {
+        amountInput.value = (amountInput.value || '') + num;
+    } else {
+        amountInput.value = (amountInput.value || '') + num;
+        amountInput.focus();
+    }
+}
+function clearTransferInput() {
+    const accountInput = document.getElementById('transferAccount');
+    const amountInput = document.getElementById('transferAmount');
+    if (document.activeElement === accountInput) {
+        accountInput.value = '';
+        accountInput.focus();
+    } else if (document.activeElement === amountInput) {
+        amountInput.value = '';
+        amountInput.focus();
+    } else {
+        amountInput.value = '';
+        amountInput.focus();
+    }
+} 
+
+// 풀스크린 모드
+function toggleFullscreen() {
+    const elem = document.documentElement;
+    const btn = document.querySelector('.fullscreen-btn');
+    if (!document.fullscreenElement) {
+        if (elem.requestFullscreen) elem.requestFullscreen();
+        btn.textContent = '전체화면 종료';
+    } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+        btn.textContent = '전체화면 시작';
+    }
+}
+document.addEventListener('fullscreenchange', function() {
+    const btn = document.querySelector('.fullscreen-btn');
+    if (document.fullscreenElement) {
+        btn.textContent = '전체화면 종료';
+    } else {
+        btn.textContent = '전체화면 시작';
+    }
+});
+
+// 음성 피드백 볼륨 제어
+let voiceVolume = 0.8;
+function setVoiceVolume(val) {
+    voiceVolume = parseFloat(val);
+}
+// 기존 speak 함수 수정
+function speak(text) {
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ko-KR';
+        utterance.rate = 0.8;
+        utterance.pitch = 1.0;
+        utterance.volume = voiceVolume;
+        speechSynthesis.speak(utterance);
+    }
+} 

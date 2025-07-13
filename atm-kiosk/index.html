@@ -14,6 +14,13 @@
             <button class="back-btn" onclick="goBack()">← 대시보드로 돌아가기</button>
         </header>
 
+        <div class="kiosk-toolbar">
+            <button class="fullscreen-btn" onclick="toggleFullscreen()">전체화면 시작</button>
+            <label class="volume-label">🔊 볼륨
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" onchange="setVoiceVolume(this.value)">
+            </label>
+        </div>
+
         <!-- 더모아은행 ATM 메인화면 리디자인 -->
         <div class="atm-main-section" id="atmMainSection">
             <div class="atm-row">
@@ -85,7 +92,7 @@
                             <span class="pin-dot" id="pin4">●</span>
                         </div>
                         <p class="pin-message">비밀번호를 입력해주세요</p>
-                        <p class="pin-warning">※ 비밀번호는 <b>쉿! 비밀이에요!</b></p>
+                        <p class="pin-warning">※ (비밀번호는 1234 입니다. 실제 비밀번호로 연습하지 마세요!)</p>
                     </div>
                 </div>
             </div>
@@ -172,25 +179,51 @@
         </div>
 
         <!-- 출금 섹션 -->
-        <div class="order-section" id="withdrawSection" style="display: none;">
-            <h2>💸 현금 출금</h2>
-            <div class="withdraw-options">
-                <div class="amount-options">
-                    <button class="amount-btn" onclick="selectAmount(10000)">10,000원</button>
-                    <button class="amount-btn" onclick="selectAmount(30000)">30,000원</button>
-                    <button class="amount-btn" onclick="selectAmount(50000)">50,000원</button>
-                    <button class="amount-btn" onclick="selectAmount(100000)">100,000원</button>
-                    <button class="amount-btn" onclick="selectAmount(200000)">200,000원</button>
-                    <button class="amount-btn" onclick="selectAmount(500000)">500,000원</button>
+        <div class="order-section section-flex" id="withdrawSection" style="display: none;">
+            <div class="withdraw-left-area">
+                <h2>💸 현금 출금</h2>
+                <div class="withdraw-options">
+                    <div class="amount-options">
+                        <button class="amount-btn" onclick="selectAmount(10000)">10,000원</button>
+                        <button class="amount-btn" onclick="selectAmount(30000)">30,000원</button>
+                        <button class="amount-btn" onclick="selectAmount(50000)">50,000원</button>
+                        <button class="amount-btn" onclick="selectAmount(100000)">100,000원</button>
+                        <button class="amount-btn" onclick="selectAmount(200000)">200,000원</button>
+                        <button class="amount-btn" onclick="selectAmount(500000)">500,000원</button>
+                    </div>
+                    <div class="custom-amount">
+                        <h3>직접 입력</h3>
+                        <input type="number" id="customAmount" placeholder="출금할 금액을 입력하세요" min="1000" step="1000">
+                        <button class="custom-amount-btn" onclick="selectCustomAmount()">확인</button>
+                    </div>
+                    <div class="selected-amount-display">
+                        <h3>선택된 금액: <span id="selectedAmount">0</span>원</h3>
+                        <button class="withdraw-btn" onclick="processWithdraw()">출금하기</button>
+                    </div>
                 </div>
-                <div class="custom-amount">
-                    <h3>직접 입력</h3>
-                    <input type="number" id="customAmount" placeholder="출금할 금액을 입력하세요" min="1000" step="1000">
-                    <button class="custom-amount-btn" onclick="selectCustomAmount()">확인</button>
-                </div>
-                <div class="selected-amount-display">
-                    <h3>선택된 금액: <span id="selectedAmount">0</span>원</h3>
-                    <button class="withdraw-btn" onclick="processWithdraw()">출금하기</button>
+            </div>
+            <div class="keypad-area">
+                <div class="number-pad number-pad-vertical">
+                    <div class="number-row">
+                        <button class="num-btn" onclick="appendCustomAmount('1')">1</button>
+                        <button class="num-btn" onclick="appendCustomAmount('2')">2</button>
+                        <button class="num-btn" onclick="appendCustomAmount('3')">3</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="appendCustomAmount('4')">4</button>
+                        <button class="num-btn" onclick="appendCustomAmount('5')">5</button>
+                        <button class="num-btn" onclick="appendCustomAmount('6')">6</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="appendCustomAmount('7')">7</button>
+                        <button class="num-btn" onclick="appendCustomAmount('8')">8</button>
+                        <button class="num-btn" onclick="appendCustomAmount('9')">9</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="appendCustomAmount('0')">0</button>
+                        <button class="clear-btn" onclick="clearCustomAmount()">지우기</button>
+                        <button class="enter-btn" onclick="selectCustomAmount()">확인</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -211,22 +244,48 @@
         </div>
 
         <!-- 이체 섹션 -->
-        <div class="order-section" id="transferSection" style="display: none;">
-            <h2>🔄 계좌 이체</h2>
-            <div class="transfer-form">
-                <div class="form-group">
-                    <label>받는 분 계좌번호</label>
-                    <input type="text" id="transferAccount" placeholder="계좌번호를 입력하세요">
+        <div class="order-section section-flex" id="transferSection" style="display: none;">
+            <div class="transfer-left-area">
+                <h2>🔄 계좌 이체</h2>
+                <div class="transfer-form">
+                    <div class="form-group">
+                        <label>받는 분 계좌번호</label>
+                        <input type="text" id="transferAccount" placeholder="계좌번호를 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label>이체 금액</label>
+                        <input type="number" id="transferAmount" placeholder="이체할 금액을 입력하세요" min="1000">
+                    </div>
+                    <div class="form-group">
+                        <label>받는 분 이름</label>
+                        <input type="text" id="transferName" placeholder="받는 분 이름을 입력하세요">
+                    </div>
+                    <button class="transfer-btn" onclick="processTransfer()">이체하기</button>
                 </div>
-                <div class="form-group">
-                    <label>이체 금액</label>
-                    <input type="number" id="transferAmount" placeholder="이체할 금액을 입력하세요" min="1000">
+            </div>
+            <div class="keypad-area">
+                <div class="number-pad number-pad-vertical">
+                    <div class="number-row">
+                        <button class="num-btn" onclick="appendTransferInput('1')">1</button>
+                        <button class="num-btn" onclick="appendTransferInput('2')">2</button>
+                        <button class="num-btn" onclick="appendTransferInput('3')">3</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="appendTransferInput('4')">4</button>
+                        <button class="num-btn" onclick="appendTransferInput('5')">5</button>
+                        <button class="num-btn" onclick="appendTransferInput('6')">6</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="appendTransferInput('7')">7</button>
+                        <button class="num-btn" onclick="appendTransferInput('8')">8</button>
+                        <button class="num-btn" onclick="appendTransferInput('9')">9</button>
+                    </div>
+                    <div class="number-row">
+                        <button class="num-btn" onclick="appendTransferInput('0')">0</button>
+                        <button class="clear-btn" onclick="clearTransferInput()">지우기</button>
+                        <button class="enter-btn" onclick="processTransfer()">확인</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>받는 분 이름</label>
-                    <input type="text" id="transferName" placeholder="받는 분 이름을 입력하세요">
-                </div>
-                <button class="transfer-btn" onclick="processTransfer()">이체하기</button>
             </div>
         </div>
 
@@ -350,5 +409,16 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+    // 뒤로가기/새로고침/닫기 방지
+    window.addEventListener('beforeunload', function(e) {
+        e.preventDefault();
+        e.returnValue = '';
+    });
+    window.addEventListener('popstate', function(e) {
+        alert('뒤로가기는 지원하지 않습니다.');
+        history.go(1);
+    });
+    </script>
 </body>
 </html> 
