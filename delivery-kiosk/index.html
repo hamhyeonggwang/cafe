@@ -118,21 +118,6 @@
             </div>
         </div>
 
-        <!-- 주문 완료 섹션 -->
-        <div class="order-section" id="completeSection" style="display: none;">
-            <h2>✅ 주문 완료</h2>
-            <div class="order-summary">
-                <h3>🍽️ 주문 내역</h3>
-                <div id="orderSummary"></div>
-                <h3>📍 배달 정보</h3>
-                <div id="deliverySummary"></div>
-                <h3>💰 결제 정보</h3>
-                <div id="paymentSummary"></div>
-                <h3>💵 총 금액: <span id="totalAmount">0원</span></h3>
-            </div>
-            <button class="complete-btn" onclick="completeOrder()">주문 완료</button>
-        </div>
-
         <!-- 장바구니 섹션 -->
         <div class="cart-section">
             <h2>🛒 장바구니</h2>
@@ -186,6 +171,21 @@
                     <button class="cancel-btn" onclick="cancelPayment()">❌ 결제 취소</button>
                 </div>
             </div>
+        </div>
+
+        <!-- 주문 완료 섹션 -->
+        <div class="order-section" id="completeSection" style="display: none;">
+            <h2>✅ 주문 완료</h2>
+            <div class="order-summary">
+                <h3>🍽️ 주문 내역</h3>
+                <div id="orderSummary"></div>
+                <h3>📍 배달 정보</h3>
+                <div id="deliverySummary"></div>
+                <h3>💰 결제 정보</h3>
+                <div id="paymentSummary"></div>
+                <h3>💵 총 금액: <span id="totalAmount">0원</span></h3>
+            </div>
+            <button class="complete-btn" onclick="completeOrder()">주문 완료</button>
         </div>
 
         <!-- 결제 화면 -->
