@@ -995,3 +995,39 @@ button:focus, input:focus {
         font-size: 0.9rem;
     }
 } 
+
+/* 비밀번호 입력 화면 레이아웃 */
+.pin-section-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    gap: 40px;
+}
+.pin-left-area {
+    flex: 1;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.pin-keypad-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.number-pad-vertical {
+    min-width: 220px;
+    max-width: 260px;
+    margin: 0 auto;
+}
+@media (max-width: 700px) {
+    .pin-section-flex {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .pin-keypad-area, .number-pad-vertical {
+        min-width: 0;
+        max-width: 100%;
+    }
+} 

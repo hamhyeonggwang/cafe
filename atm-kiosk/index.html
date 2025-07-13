@@ -73,20 +73,24 @@
         </div>
 
         <!-- PIN 입력 섹션 -->
-        <div class="order-section" id="pinSection" style="display: none;">
-            <h2>🔐 비밀번호 입력</h2>
-            <div class="pin-input-area">
-                <div class="pin-display">
-                    <div class="pin-dots">
-                        <span class="pin-dot" id="pin1">●</span>
-                        <span class="pin-dot" id="pin2">●</span>
-                        <span class="pin-dot" id="pin3">●</span>
-                        <span class="pin-dot" id="pin4">●</span>
+        <div class="order-section pin-section-flex" id="pinSection" style="display: none;">
+            <div class="pin-left-area">
+                <h2>🔐 비밀번호 입력</h2>
+                <div class="pin-input-area">
+                    <div class="pin-display">
+                        <div class="pin-dots">
+                            <span class="pin-dot" id="pin1">●</span>
+                            <span class="pin-dot" id="pin2">●</span>
+                            <span class="pin-dot" id="pin3">●</span>
+                            <span class="pin-dot" id="pin4">●</span>
+                        </div>
+                        <p class="pin-message">비밀번호를 입력해주세요</p>
+                        <p class="pin-warning">※ 비밀번호는 <b>쉿! 비밀이에요!</b></p>
                     </div>
-                    <p class="pin-message">비밀번호를 입력해주세요</p>
-                    <p class="pin-warning">※ 비밀번호는 <b>쉿! 비밀이에요!</b></p>
                 </div>
-                <div class="number-pad">
+            </div>
+            <div class="pin-keypad-area">
+                <div class="number-pad number-pad-vertical">
                     <div class="number-row">
                         <button class="num-btn" onclick="inputNumber('1')">1</button>
                         <button class="num-btn" onclick="inputNumber('2')">2</button>
